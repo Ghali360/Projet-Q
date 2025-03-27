@@ -1,5 +1,5 @@
 //=============================================================================
-// rmmz_scenes.js v1.8.0
+// rmmz_scenes.js v1.0.0
 //=============================================================================
 
 //-----------------------------------------------------------------------------
@@ -327,10 +327,6 @@ Scene_Boot.prototype.start = function() {
     } else if (DataManager.isEventTest()) {
         DataManager.setupEventTest();
         SceneManager.goto(Scene_Map);
-    } else if (DataManager.isTitleSkip()) {
-        this.checkPlayerLocation();
-        DataManager.setupNewGame();
-        SceneManager.goto(Scene_Map);
     } else {
         this.startNormalGame();
     }
@@ -341,15 +337,14 @@ Scene_Boot.prototype.start = function() {
 Scene_Boot.prototype.startNormalGame = function() {
     this.checkPlayerLocation();
     DataManager.setupNewGame();
+    SceneManager.goto(Scene_Title);
     Window_TitleCommand.initCommandPosition();
-    SceneManager.goto(Scene_Splash);
 };
 
 Scene_Boot.prototype.resizeScreen = function() {
     const screenWidth = $dataSystem.advanced.screenWidth;
     const screenHeight = $dataSystem.advanced.screenHeight;
     Graphics.resize(screenWidth, screenHeight);
-    Graphics.defaultScale = this.screenScale();
     this.adjustBoxSize();
     this.adjustWindow();
 };
@@ -364,19 +359,10 @@ Scene_Boot.prototype.adjustBoxSize = function() {
 
 Scene_Boot.prototype.adjustWindow = function() {
     if (Utils.isNwjs()) {
-        const scale = this.screenScale();
-        const xDelta = Graphics.width * scale - window.innerWidth;
-        const yDelta = Graphics.height * scale - window.innerHeight;
+        const xDelta = Graphics.width - window.innerWidth;
+        const yDelta = Graphics.height - window.innerHeight;
         window.moveBy(-xDelta / 2, -yDelta / 2);
         window.resizeBy(xDelta, yDelta);
-    }
-};
-
-Scene_Boot.prototype.screenScale = function() {
-    if ("screenScale" in $dataSystem.advanced) {
-        return $dataSystem.advanced.screenScale;
-    } else {
-        return 1;
     }
 };
 
@@ -388,96 +374,6 @@ Scene_Boot.prototype.checkPlayerLocation = function() {
     if ($dataSystem.startMapId === 0) {
         throw new Error("Player's starting position is not set");
     }
-};
-
-//-----------------------------------------------------------------------------
-// Scene_Splash
-//
-// The scene class of the splash screen.
-
-function Scene_Splash() {
-    this.initialize(...arguments);
-}
-
-Scene_Splash.prototype = Object.create(Scene_Base.prototype);
-Scene_Splash.prototype.constructor = Scene_Splash;
-
-Scene_Splash.prototype.initialize = function() {
-    Scene_Base.prototype.initialize.call(this);
-    this.initWaitCount();
-};
-
-Scene_Splash.prototype.create = function() {
-    Scene_Base.prototype.create.call(this);
-    if (this.isEnabled()) {
-        this.createBackground();
-    }
-};
-
-Scene_Splash.prototype.start = function() {
-    Scene_Base.prototype.start.call(this);
-    if (this.isEnabled()) {
-        this.adjustBackground();
-        this.startFadeIn(this.fadeSpeed(), false);
-    }
-};
-
-Scene_Splash.prototype.update = function() {
-    Scene_Base.prototype.update.call(this);
-    if (this.isActive()) {
-        if (!this.updateWaitCount()) {
-            this.gotoTitle();
-        }
-        this.checkSkip();
-    }
-};
-
-Scene_Splash.prototype.stop = function() {
-    Scene_Base.prototype.stop.call(this);
-    if (this.isEnabled()) {
-        this.startFadeOut(this.fadeSpeed());
-    }
-};
-
-Scene_Splash.prototype.createBackground = function() {
-    this._backSprite = new Sprite();
-    this._backSprite.bitmap = ImageManager.loadSystem("Splash");
-    this.addChild(this._backSprite);
-};
-
-Scene_Splash.prototype.adjustBackground = function() {
-    this.scaleSprite(this._backSprite);
-    this.centerSprite(this._backSprite);
-};
-
-Scene_Splash.prototype.isEnabled = function() {
-    return $dataSystem.optSplashScreen;
-};
-
-Scene_Splash.prototype.initWaitCount = function() {
-    if (this.isEnabled()) {
-        this._waitCount = 120;
-    } else {
-        this._waitCount = 0;
-    }
-};
-
-Scene_Splash.prototype.updateWaitCount = function() {
-    if (this._waitCount > 0) {
-        this._waitCount--;
-        return true;
-    }
-    return false;
-};
-
-Scene_Splash.prototype.checkSkip = function() {
-    if (Input.isTriggered("ok") || TouchInput.isTriggered()) {
-        this._waitCount = 0;
-    }
-};
-
-Scene_Splash.prototype.gotoTitle = function() {
-    SceneManager.goto(Scene_Title);
 };
 
 //-----------------------------------------------------------------------------
@@ -735,10 +631,6 @@ Scene_Message.prototype.associateWindows = function() {
     this._eventItemWindow.setMessageWindow(messageWindow);
 };
 
-Scene_Message.prototype.cancelMessageWait = function() {
-    this._messageWindow.cancelWait();
-};
-
 //-----------------------------------------------------------------------------
 // Scene_Map
 //
@@ -767,7 +659,7 @@ Scene_Map.prototype.create = function() {
     if (this._transfer) {
         DataManager.loadMapData($gamePlayer.newMapId());
         this.onTransfer();
-    } else {
+    } else if (!$dataMap || $dataMap.id !== $gameMap.mapId()) {
         DataManager.loadMapData($gameMap.mapId());
     }
 };
@@ -832,7 +724,6 @@ Scene_Map.prototype.update = function() {
 
 Scene_Map.prototype.updateMainMultiply = function() {
     if (this.isFastForward()) {
-        this.cancelMessageWait();
         this.updateMain();
     }
     this.updateMain();
@@ -1618,8 +1509,7 @@ Scene_ItemBase.prototype.itemTargetActors = function() {
 };
 
 Scene_ItemBase.prototype.canUse = function() {
-    const user = this.user();
-    return user && user.canUse(this.item()) && this.isItemEffectsValid();
+    return this.user().canUse(this.item()) && this.isItemEffectsValid();
 };
 
 Scene_ItemBase.prototype.isItemEffectsValid = function() {
@@ -1697,8 +1587,6 @@ Scene_Item.prototype.createItemWindow = function() {
     if (!this._categoryWindow.needsSelection()) {
         this._itemWindow.y -= this._categoryWindow.height;
         this._itemWindow.height += this._categoryWindow.height;
-        this._itemWindow.createContents();
-        this._categoryWindow.update();
         this._categoryWindow.hide();
         this._categoryWindow.deactivate();
         this.onCategoryOk();
@@ -2460,8 +2348,7 @@ Scene_Load.prototype.reloadMapIfUpdated = function() {
         const mapId = $gameMap.mapId();
         const x = $gamePlayer.x;
         const y = $gamePlayer.y;
-        const d = $gamePlayer.direction();
-        $gamePlayer.reserveTransfer(mapId, x, y, d, 0);
+        $gamePlayer.reserveTransfer(mapId, x, y);
         $gamePlayer.requestMapReload();
     }
 };

@@ -1,5 +1,5 @@
 //=============================================================================
-// rmmz_windows.js v1.8.0
+// rmmz_windows.js v1.0.0
 //=============================================================================
 
 //-----------------------------------------------------------------------------
@@ -74,7 +74,7 @@ Window_Base.prototype.updatePadding = function() {
 };
 
 Window_Base.prototype.updateBackOpacity = function() {
-    this.backOpacity = $gameSystem.windowOpacity();
+    this.backOpacity = 192;
 };
 
 Window_Base.prototype.fittingHeight = function(numLines) {
@@ -291,11 +291,12 @@ Window_Base.prototype.convertEscapeCharacters = function(text) {
     /* eslint no-control-regex: 0 */
     text = text.replace(/\\/g, "\x1b");
     text = text.replace(/\x1b\x1b/g, "\\");
-    while (text.match(/\x1bV\[(\d+)\]/gi)) {
-        text = text.replace(/\x1bV\[(\d+)\]/gi, (_, p1) =>
-            $gameVariables.value(parseInt(p1))
-        );
-    }
+    text = text.replace(/\x1bV\[(\d+)\]/gi, (_, p1) =>
+        $gameVariables.value(parseInt(p1))
+    );
+    text = text.replace(/\x1bV\[(\d+)\]/gi, (_, p1) =>
+        $gameVariables.value(parseInt(p1))
+    );
     text = text.replace(/\x1bN\[(\d+)\]/gi, (_, p1) =>
         this.actorName(parseInt(p1))
     );
@@ -467,8 +468,8 @@ Window_Base.prototype.drawFace = function(
     const sh = Math.min(height, ph);
     const dx = Math.floor(x + Math.max(width - pw, 0) / 2);
     const dy = Math.floor(y + Math.max(height - ph, 0) / 2);
-    const sx = Math.floor((faceIndex % 4) * pw + (pw - sw) / 2);
-    const sy = Math.floor(Math.floor(faceIndex / 4) * ph + (ph - sh) / 2);
+    const sx = (faceIndex % 4) * pw + (pw - sw) / 2;
+    const sy = Math.floor(faceIndex / 4) * ph + (ph - sh) / 2;
     this.contents.blt(bitmap, sx, sy, sw, sh, dx, dy);
 };
 
@@ -1997,7 +1998,7 @@ Window_MenuStatus.prototype.drawItemStatus = function(index) {
     const actor = this.actor(index);
     const rect = this.itemRect(index);
     const x = rect.x + 180;
-    const y = rect.y + Math.floor(rect.height / 2 - this.lineHeight() * 1.5);
+    const y = rect.y + rect.height / 2 - this.lineHeight() * 1.5;
     this.drawActorSimpleStatus(actor, x, y);
 };
 
@@ -4315,7 +4316,6 @@ Window_ChoiceList.prototype.start = function() {
     this.placeCancelButton();
     this.createContents();
     this.refresh();
-    this.scrollTo(0, 0);
     this.selectDefault();
     this.open();
     this.activate();
@@ -4675,7 +4675,6 @@ Window_EventItem.prototype.initialize = function(rect) {
     this.deactivate();
     this.setHandler("ok", this.onOk.bind(this));
     this.setHandler("cancel", this.onCancel.bind(this));
-    this._canRepeat = false;
 };
 
 Window_EventItem.prototype.setMessageWindow = function(messageWindow) {
@@ -4915,10 +4914,6 @@ Window_Message.prototype.updateWait = function() {
     }
 };
 
-Window_Message.prototype.cancelWait = function() {
-    this._waitCount = 0;
-};
-
 Window_Message.prototype.updateLoading = function() {
     if (this._faceBitmap) {
         if (this._faceBitmap.isReady()) {
@@ -4972,7 +4967,7 @@ Window_Message.prototype.updateMessage = function() {
             }
         }
         this.flushTextState(textState);
-        if (this.isEndOfText(textState) && !this.isWaiting()) {
+        if (this.isEndOfText(textState) && !this.pause) {
             this.onEndOfText();
         }
         return true;
@@ -4986,7 +4981,7 @@ Window_Message.prototype.shouldBreakHere = function(textState) {
         if (!this._showFast && !this._lineShowFast) {
             return true;
         }
-        if (this.isWaiting()) {
+        if (this.pause || this._waitCount > 0) {
             return true;
         }
     }
@@ -5167,10 +5162,6 @@ Window_Message.prototype.startPause = function() {
     this.pause = true;
 };
 
-Window_Message.prototype.isWaiting = function() {
-    return this.pause || this._waitCount > 0;
-};
-
 //-----------------------------------------------------------------------------
 // Window_ScrollText
 //
@@ -5190,11 +5181,7 @@ Window_ScrollText.prototype.initialize = function(rect) {
     this.hide();
     this._reservedRect = rect;
     this._text = "";
-    this._maxBitmapHeight = 2048;
     this._allTextHeight = 0;
-    this._blockHeight = 0;
-    this._blockIndex = 0;
-    this._scrollY = 0;
 };
 
 Window_ScrollText.prototype.update = function() {
@@ -5211,25 +5198,17 @@ Window_ScrollText.prototype.update = function() {
 
 Window_ScrollText.prototype.startMessage = function() {
     this._text = $gameMessage.allText();
-    if (this._text) {
-        this.updatePlacement();
-        this._allTextHeight = this.textSizeEx(this._text).height;
-        this._blockHeight = this._maxBitmapHeight - this.height;
-        this._blockIndex = 0;
-        this.origin.y = this._scrollY = -this.height;
-        this.createContents();
-        this.refresh();
-        this.show();
-    } else {
-        $gameMessage.clear();
-    }
+    this.updatePlacement();
+    this.refresh();
+    this.show();
 };
 
 Window_ScrollText.prototype.refresh = function() {
+    this._allTextHeight = this.textSizeEx(this._text).height;
+    this.createContents();
+    this.origin.y = -this.height;
     const rect = this.baseTextRect();
-    const y = rect.y - this._scrollY + (this._scrollY % this._blockHeight);
-    this.contents.clear();
-    this.drawTextEx(this._text, rect.x, y, rect.width);
+    this.drawTextEx(this._text, rect.x, rect.y, rect.width);
 };
 
 Window_ScrollText.prototype.updatePlacement = function() {
@@ -5238,24 +5217,13 @@ Window_ScrollText.prototype.updatePlacement = function() {
 };
 
 Window_ScrollText.prototype.contentsHeight = function() {
-    if (this._allTextHeight > 0) {
-        return Math.min(this._allTextHeight, this._maxBitmapHeight);
-    } else {
-        return 0;
-    }
+    return Math.max(this._allTextHeight, 1);
 };
 
 Window_ScrollText.prototype.updateMessage = function() {
-    this._scrollY += this.scrollSpeed();
-    if (this._scrollY >= this._allTextHeight) {
+    this.origin.y += this.scrollSpeed();
+    if (this.origin.y >= this.contents.height) {
         this.terminateMessage();
-    } else {
-        const blockIndex = Math.floor(this._scrollY / this._blockHeight);
-        if (blockIndex > this._blockIndex) {
-            this._blockIndex = blockIndex;
-            this.refresh();
-        }
-        this.origin.y = this._scrollY % this._blockHeight;
     }
 };
 
