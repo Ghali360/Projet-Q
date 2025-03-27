@@ -1,5 +1,5 @@
 //=============================================================================
-// rmmz_managers.js v1.8.0
+// rmmz_managers.js v1.0.0
 //=============================================================================
 
 //-----------------------------------------------------------------------------
@@ -216,10 +216,6 @@ DataManager.isBattleTest = function() {
 
 DataManager.isEventTest = function() {
     return Utils.isOptionValid("etest");
-};
-
-DataManager.isTitleSkip = function() {
-    return Utils.isOptionValid("tskip");
 };
 
 DataManager.isSkill = function(item) {
@@ -692,8 +688,8 @@ StorageManager.saveToForage = function(saveName, zip) {
     setTimeout(() => localforage.removeItem(testKey));
     return localforage
         .setItem(testKey, zip)
-        .then(() => localforage.setItem(key, zip))
-        .then(() => this.updateForageKeys());
+        .then(localforage.setItem(key, zip))
+        .then(this.updateForageKeys());
 };
 
 StorageManager.loadFromForage = function(saveName) {
@@ -708,7 +704,7 @@ StorageManager.forageExists = function(saveName) {
 
 StorageManager.removeForage = function(saveName) {
     const key = this.forageKey(saveName);
-    return localforage.removeItem(key).then(() => this.updateForageKeys());
+    return localforage.removeItem(key).then(this.updateForageKeys());
 };
 
 StorageManager.updateForageKeys = function() {
@@ -962,17 +958,17 @@ ImageManager.throwLoadError = function(bitmap) {
 };
 
 ImageManager.isObjectCharacter = function(filename) {
-    const sign = Utils.extractFileName(filename).match(/^[!$]+/);
+    const sign = filename.match(/^[!$]+/);
     return sign && sign[0].includes("!");
 };
 
 ImageManager.isBigCharacter = function(filename) {
-    const sign = Utils.extractFileName(filename).match(/^[!$]+/);
+    const sign = filename.match(/^[!$]+/);
     return sign && sign[0].includes("$");
 };
 
 ImageManager.isZeroParallax = function(filename) {
-    return Utils.extractFileName(filename).charAt(0) === "!";
+    return filename.charAt(0) === "!";
 };
 
 //-----------------------------------------------------------------------------
@@ -1002,7 +998,7 @@ EffectManager.load = function(filename) {
 
 EffectManager.startLoading = function(url) {
     const onLoad = () => this.onLoad(url);
-    const onError = (message, url) => this.onError(url);
+    const onError = () => this.onError(url);
     const effect = Graphics.effekseer.loadEffect(url, 1, onLoad, onError);
     this._cache[url] = effect;
     return effect;
@@ -1965,9 +1961,7 @@ SceneManager.determineRepeatNumber = function(deltaTime) {
 };
 
 SceneManager.terminate = function() {
-    if (Utils.isNwjs()) {
-        nw.App.quit();
-    }
+    window.close();
 };
 
 SceneManager.onError = function(event) {
@@ -2073,7 +2067,7 @@ SceneManager.updateInputData = function() {
 };
 
 SceneManager.updateEffekseer = function() {
-    if (Graphics.effekseer && this.isGameActive()) {
+    if (Graphics.effekseer) {
         Graphics.effekseer.update();
     }
 };
@@ -2682,14 +2676,8 @@ BattleManager.endTurn = function() {
     this._phase = "turnEnd";
     this._preemptive = false;
     this._surprise = false;
-};
-
-BattleManager.updateTurnEnd = function() {
-    if (this.isTpb()) {
-        this.startTurn();
-    } else {
+    if (!this.isTpb()) {
         this.endAllBattlersTurn();
-        this._phase = "start";
     }
 };
 
@@ -2706,6 +2694,14 @@ BattleManager.displayBattlerStatus = function(battler, current) {
         this._logWindow.displayCurrentState(battler);
     }
     this._logWindow.displayRegeneration(battler);
+};
+
+BattleManager.updateTurnEnd = function() {
+    if (this.isTpb()) {
+        this.startTurn();
+    } else {
+        this.startInput();
+    }
 };
 
 BattleManager.getNextSubject = function() {
@@ -2746,7 +2742,6 @@ BattleManager.startAction = function() {
     this._phase = "action";
     this._action = action;
     this._targets = targets;
-    subject.cancelMotionRefresh();
     subject.useItem(action.item());
     this._action.applyGlobal();
     this._logWindow.startAction(subject, action, targets);
@@ -2820,18 +2815,12 @@ BattleManager.checkSubstitute = function(target) {
 };
 
 BattleManager.isActionForced = function() {
-    return (
-        !!this._actionForcedBattler &&
-        !$gameParty.isAllDead() &&
-        !$gameTroop.isAllDead()
-    );
+    return !!this._actionForcedBattler;
 };
 
 BattleManager.forceAction = function(battler) {
-    if (battler.numActions() > 0) {
-        this._actionForcedBattler = battler;
-        this._actionBattlers.remove(battler);
-    }
+    this._actionForcedBattler = battler;
+    this._actionBattlers.remove(battler);
 };
 
 BattleManager.processForcedAction = function() {
@@ -2852,8 +2841,7 @@ BattleManager.abort = function() {
 
 BattleManager.checkBattleEnd = function() {
     if (this._phase) {
-        if ($gameParty.isEscaped()) {
-            this.processPartyEscape();
+        if (this.checkAbort()) {
             return true;
         } else if ($gameParty.isAllDead()) {
             this.processDefeat();
@@ -2867,9 +2855,8 @@ BattleManager.checkBattleEnd = function() {
 };
 
 BattleManager.checkAbort = function() {
-    if (this.isAborting()) {
+    if ($gameParty.isEmpty() || this.isAborting()) {
         this.processAbort();
-        return true;
     }
     return false;
 };
@@ -2913,11 +2900,6 @@ BattleManager.onEscapeFailure = function() {
     }
 };
 
-BattleManager.processPartyEscape = function() {
-    this._escaped = true;
-    this.processAbort();
-};
-
 BattleManager.processAbort = function() {
     $gameParty.removeBattleStates();
     this._logWindow.clear();
@@ -2948,7 +2930,6 @@ BattleManager.endBattle = function(result) {
     } else if (this._escaped) {
         $gameSystem.onBattleEscape();
     }
-    $gameTemp.clearCommonEventReservation();
 };
 
 BattleManager.updateBattleEnd = function() {
@@ -3064,11 +3045,10 @@ PluginManager._commands = {};
 
 PluginManager.setup = function(plugins) {
     for (const plugin of plugins) {
-        const pluginName = Utils.extractFileName(plugin.name);
-        if (plugin.status && !this._scripts.includes(pluginName)) {
-            this.setParameters(pluginName, plugin.parameters);
+        if (plugin.status && !this._scripts.includes(plugin.name)) {
+            this.setParameters(plugin.name, plugin.parameters);
             this.loadScript(plugin.name);
-            this._scripts.push(pluginName);
+            this._scripts.push(plugin.name);
         }
     }
 };
