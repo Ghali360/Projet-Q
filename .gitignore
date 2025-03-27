@@ -1,0 +1,38 @@
+# ==============================
+# Fichiers temporaires et de logs
+# ==============================
+*.tmp
+*.log
+*.bak
+
+# ==============================
+# Sauvegardes automatiques de l'éditeur RPG Maker
+# ==============================
+*.rpgsave
+
+# ==============================
+# Dossiers temporaires générés par RPG Maker MZ
+# (Ces dossiers contiennent des fichiers temporaires et ne doivent pas être versionnés)
+# ==============================
+/data/Temp/
+/save/
+
+# ==============================
+# Cache et fichiers locaux
+# (Fichiers générés localement qui ne doivent pas être suivis par Git)
+# ==============================
+.cache/
+*.local
+
+# ==============================
+# Plugins et scripts tiers
+# (Si vous souhaitez ne pas versionner les plugins fournis par RPG Maker ou ajoutés par d'autres)
+# Décommentez la ligne ci-dessous si vous voulez ignorer l'ensemble du dossier
+# /js/plugins/
+
+# ==============================
+# Fichiers spécifiques à l'environnement de développement
+# (Si vous avez des fichiers de configuration locaux ou des logs spécifiques à votre IDE)
+# ==============================
+.idea/
+.vscode/
