@@ -9,5 +9,5 @@ null,
 {"id":7,"expanded":false,"name":"Avenue d'Orsay","order":7,"parentId":0,"scrollX":763.5,"scrollY":491},
 {"id":8,"expanded":true,"name":"Maison de Paco","order":8,"parentId":0,"scrollX":0,"scrollY":0,"quick":false},
 {"id":9,"expanded":false,"name":"Entrée Paco","order":9,"parentId":8,"scrollX":763.5,"scrollY":491,"quick":false},
-{"id":10,"expanded":false,"name":"Salon Paco","order":10,"parentId":8,"scrollX":763.5,"scrollY":589,"quick":false}
+{"id":10,"expanded":false,"name":"Salon Paco","order":10,"parentId":8,"scrollX":763.5,"scrollY":491,"quick":false}
 ]
