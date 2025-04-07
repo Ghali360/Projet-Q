@@ -1,13 +1,14 @@
 [
 null,
-{"id":1,"expanded":false,"name":"MAP001","order":6,"parentId":0,"scrollX":411.55555555555554,"scrollY":320.8888888888889},
-{"id":2,"expanded":false,"name":"Chambre de Quentin","order":2,"parentId":3,"scrollX":811,"scrollY":457},
-{"id":3,"expanded":true,"name":"Maison de Quentin","order":1,"parentId":0,"scrollX":0,"scrollY":0},
-{"id":4,"expanded":false,"name":"1er étage","order":3,"parentId":3,"scrollX":0,"scrollY":0},
-{"id":5,"expanded":false,"name":"Salle de bain","order":4,"parentId":3,"scrollX":0,"scrollY":0},
-{"id":6,"expanded":false,"name":"RDC (de Quentin)","order":5,"parentId":3,"scrollX":0,"scrollY":0},
-{"id":7,"expanded":false,"name":"Avenue d'Orsay","order":7,"parentId":0,"scrollX":763.5,"scrollY":491},
-{"id":8,"expanded":true,"name":"Maison de Paco","order":8,"parentId":0,"scrollX":0,"scrollY":0,"quick":false},
-{"id":9,"expanded":false,"name":"Entrée Paco","order":9,"parentId":8,"scrollX":763.5,"scrollY":491,"quick":false},
-{"id":10,"expanded":false,"name":"Salon Paco","order":10,"parentId":8,"scrollX":763.5,"scrollY":491,"quick":false}
+{"id":1,"expanded":false,"name":"MAP001","order":1,"parentId":0,"scrollX":811,"scrollY":457.5},
+{"id":2,"expanded":false,"name":"Chambre de Quentin","order":3,"parentId":3,"scrollX":811,"scrollY":457},
+{"id":3,"expanded":false,"name":"Maison de Quentin","order":2,"parentId":0,"scrollX":0,"scrollY":0},
+{"id":4,"expanded":false,"name":"1er étage","order":4,"parentId":3,"scrollX":0,"scrollY":0},
+{"id":5,"expanded":false,"name":"Salle de bain","order":5,"parentId":3,"scrollX":0,"scrollY":0},
+{"id":6,"expanded":false,"name":"RDC (de Quentin)","order":6,"parentId":3,"scrollX":0,"scrollY":0},
+null,
+{"id":8,"expanded":false,"name":"Maison de Paco","order":8,"parentId":0,"scrollX":819,"scrollY":457.5,"quick":false},
+{"id":9,"expanded":false,"name":"Entrée Paco","order":9,"parentId":8,"scrollX":811,"scrollY":457.5,"quick":false},
+{"id":10,"expanded":false,"name":"Salon Paco","order":10,"parentId":8,"scrollX":819,"scrollY":934.5,"quick":false},
+{"id":11,"expanded":false,"name":"Avenue d'Orsay","order":7,"parentId":0,"scrollX":811,"scrollY":457.5,"quick":false}
 ]
