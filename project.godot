@@ -14,6 +14,7 @@ config/name="Projet-Q-Godot"
 run/main_scene="uid://b4ypf8sdtqmel"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://sprites/icon.svg"
+boot_splash/main_scene="uid://b4ypf8sdtqmel"
 
 [autoload]
 
