@@ -1,12 +1,22 @@
 class_name player
 extends CharacterBody2D
 
-var speed : float = 100
+var speed : float = 200
 var direction : Vector2 = Vector2.ZERO
 var cardinal_direction : Vector2 = Vector2.DOWN
 var state : String = "idle"
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
+var haut : bool = false
+var bas : bool = false
+var droite : bool = false
+var gauche : bool = false
+var currentAnim : String = ""
+var LastDirection : String = ""
+
+
+
+
 func _process(delta: float) -> void:
 	
 	direction.x = Input.get_action_strength("droite") - Input.get_action_strength("gauche")
@@ -14,50 +24,65 @@ func _process(delta: float) -> void:
 	
 	velocity = direction * speed
 	cardinal_direction = direction
-	if SetState() == true : #|| SetDirection() == true :
-		UpdateAnimation()
-	#print (state)
+
+	if Input.is_action_pressed("haut") :
+		haut = true
+		#UpdateAnimation()
+	if Input.is_action_pressed("bas") :
+		bas = true
+		#UpdateAnimation()
+	if Input.is_action_pressed("droite") :
+		droite = true
+		#UpdateAnimation()
+	if Input.is_action_pressed("gauche") :
+		gauche = true
+		#UpdateAnimation()
+	if haut || bas || droite || gauche :
+		state = ("Marche")
+	
+	
+	if not Input.is_action_pressed("haut") :
+		haut = false
+	if not Input.is_action_pressed("bas") :
+		bas = false
+	if not Input.is_action_pressed("droite") :
+		droite = false
+	if not Input.is_action_pressed("gauche") :
+		gauche = false
+		
+		
+		
+	if not haut and not bas and not droite and not gauche :
+		state = ("idle")
+	
+	var targetAnim = state + "_" + AnimDirection()
+	if targetAnim != currentAnim:
+		animation_player.play(targetAnim)
+		currentAnim = targetAnim
+	
+	
 func _physics_process(delta: float) -> void:
 	move_and_slide()
-	
-func SetDirection() -> bool :
-	var new_dir : Vector2 = cardinal_direction
-	if direction  == Vector2.ZERO:
-		return false
-	if direction.y == 0 :
-		new_dir = Vector2.LEFT if direction.x < 0 else Vector2.RIGHT
-	elif direction.x == 0 :
-		new_dir = Vector2.UP if direction.y < 0 else Vector2.DOWN
-		
-	if new_dir == cardinal_direction :
-		return false
-	cardinal_direction = new_dir
-	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
-	return true
-	
-func SetState() -> bool :
-	var newState : String = "idle" if direction == Vector2.ZERO else "Marche"
-	if newState == state:
-		return false
-		state = newState
-		print (state)
-	return true
 	
 func UpdateAnimation() -> void :
 	animation_player.play (state + "_" + AnimDirection())
 	
+	
+	
 func AnimDirection() -> String:
-	if cardinal_direction == Vector2.DOWN :
-		return "down"
-	elif cardinal_direction == Vector2.UP :
-		return "up"
-	elif cardinal_direction == Vector2.LEFT :
-		return "gauche"
-	elif cardinal_direction == Vector2.RIGHT :
-		return "droite"
-	elif cardinal_direction == Vector2.RIGHT + Vector2.UP :
-		return "up"
-	elif cardinal_direction == Vector2.LEFT + Vector2.UP :
-		return "up"
+	if direction == Vector2.ZERO :
+		return LastDirection
+	if abs(direction.x) > abs(direction.y) :
+		if direction.x > 0 :
+			LastDirection = "droite"
+			return "droite"
+		else :
+			LastDirection = "gauche"
+			return "gauche"
 	else :
-		return "down"
+		if direction.y > 0 :
+			LastDirection = "down"
+			return "down"
+		else :
+			LastDirection = "up"
+			return "up"
