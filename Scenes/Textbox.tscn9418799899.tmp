@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://bt7l47r1o15ww"]
+
+[ext_resource type="Script" uid="uid://du3j5wrua7af7" path="res://script/textbox.gd" id="1_ktxlv"]
+[ext_resource type="Texture2D" uid="uid://cmo0ep0i50psn" path="res://sprites/Macron.png" id="2_db1ld"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2h2o"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_ktxlv")
+
+[node name="TexboxContainer" type="MarginContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -240.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="TexboxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a2h2o")
+
+[node name="MarginContainer" type="MarginContainer" parent="TexboxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel2" type="Panel" parent="TexboxContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TexboxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TexboxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 30
+
+[node name="CharacterImage" type="TextureRect" parent="TexboxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_db1ld")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TexboxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 40
+text = "slt ta des jeux sur ton telpehone"
+autowrap_mode = 2
+
+[node name="End" type="Label" parent="TexboxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(23, 55)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 40
+text = "v"

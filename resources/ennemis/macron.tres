@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bdsg2s5bqre5l"]
+
+[ext_resource type="Script" uid="uid://b87kb0m40o26u" path="res://script/ennemi.gd" id="1_540pv"]
+[ext_resource type="Texture2D" uid="uid://cmo0ep0i50psn" path="res://sprites/Macron.png" id="2_lekdv"]
+
+[resource]
+script = ExtResource("1_540pv")
+name = "Macron"
+texture = ExtResource("2_lekdv")
+pv = 500
+damage = 10
