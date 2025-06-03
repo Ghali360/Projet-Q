@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b4ypf8sdtqmel"]
+[gd_scene load_steps=21 format=3 uid="uid://b4ypf8sdtqmel"]
 
 [ext_resource type="Script" uid="uid://wpar88hq1oqg" path="res://script/battle.gd" id="1_u22qb"]
 [ext_resource type="Texture2D" uid="uid://qxtiyix6nsyl" path="res://sprites/Gare_d'Orsay_le_31_juillet_2014.jpg" id="1_wvl2i"]
@@ -13,17 +13,26 @@
 
 [sub_resource type="Resource" id="Resource_262jj"]
 script = ExtResource("13_xmk5i")
-texte = "Un MACRON sauvage apparait !  oh non"
+texte = "Un [b]MACRON[/b] sauvage apparait !  
+oh non"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
+font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="SystemFont" id="SystemFont_qxnh6"]
+font_names = PackedStringArray("Impact")
 
 [sub_resource type="Resource" id="Resource_tiokb"]
 script = ExtResource("13_xmk5i")
 texture = ExtResource("4_6yjxy")
-texte = "haha c moi macron je vais aneantir le monde"
-"vitesse_défilement_texte" = 100.0
-skip_options = 1
+texte = "haha c moi [color=red]macron[/color] je vais aneantir le monde"
+"vitesse_défilement_texte" = 54.0
+skip_options = 0
+font_custom = true
+font = SubResource("SystemFont_qxnh6")
+font_color = Color(1, 0, 1, 1)
+font_size = 40
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
 [sub_resource type="Resource" id="Resource_0qgg5"]
@@ -31,15 +40,17 @@ script = ExtResource("13_xmk5i")
 texture = ExtResource("5_qxnh6")
 texte = "non arete ces pa bien"
 "vitesse_défilement_texte" = 200.0
-skip_options = 3
+skip_options = 0
+font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
 [sub_resource type="Resource" id="Resource_n5y6x"]
 script = ExtResource("13_xmk5i")
 texture = ExtResource("4_6yjxy")
-texte = "oh nn c vrai"
+texte = "oh nn c [font_size=60]vrai[/font_size]"
 "vitesse_défilement_texte" = 200.0
-skip_options = 3
+skip_options = 0
+font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
 [sub_resource type="Resource" id="Resource_jr0ro"]
@@ -48,6 +59,7 @@ texture = ExtResource("4_6yjxy")
 texte = "ok jarete alors"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
+font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
 [sub_resource type="Resource" id="Resource_6xsll"]
@@ -56,6 +68,7 @@ texture = ExtResource("5_qxnh6")
 texte = "youpi"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
+font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
 [sub_resource type="Resource" id="Resource_imcj7"]
@@ -64,14 +77,19 @@ texture = ExtResource("4_6yjxy")
 texte = "youpi"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
+font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
 [sub_resource type="Resource" id="Resource_l0uqe"]
 script = ExtResource("13_xmk5i")
 texte = "FIGHT"
 "vitesse_défilement_texte" = 20.0
-skip_options = 2
+skip_options = 0
+font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="SystemFont" id="SystemFont_262jj"]
+font_names = PackedStringArray("Comic Sans MS")
 
 [node name="Battle" type="Control"]
 layout_mode = 3
@@ -187,6 +205,9 @@ metadata/_custom_type_script = "uid://dv37f81mw41vv"
 [node name="TextboxManager" type="Node" parent="."]
 script = ExtResource("10_l0uqe")
 lignes_de_dialogue = Array[ExtResource("13_xmk5i")]([SubResource("Resource_262jj"), SubResource("Resource_tiokb"), SubResource("Resource_0qgg5"), SubResource("Resource_n5y6x"), SubResource("Resource_jr0ro"), SubResource("Resource_6xsll"), SubResource("Resource_imcj7"), SubResource("Resource_l0uqe")])
+font = SubResource("SystemFont_262jj")
+font_color = Color(1, 0.509804, 0, 1)
+font_size = 40
 metadata/_custom_type_script = "uid://dv37f81mw41vv"
 
 [connection signal="pressed" from="AttaqueButton" to="." method="_on_attaque_button_pressed"]

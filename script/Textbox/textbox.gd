@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @onready var textbox_container : MarginContainer = $TexboxContainer
-@onready var label : Label = $TexboxContainer/MarginContainer/HBoxContainer/Label
+@onready var label : RichTextLabel = $TexboxContainer/MarginContainer/HBoxContainer/Label
 @onready var end_symbol : Label = $TexboxContainer/MarginContainer/HBoxContainer/End
 @onready var textbox_image : TextureRect = $TexboxContainer/MarginContainer/HBoxContainer/MarginContainer/CharacterImage
 var tween : Tween ## Tween pour l'animation du texte.
@@ -27,7 +27,7 @@ enum State {
 
 # Masques pour récupérer les flags de TextboxContent.skip_options.
 const INSKIPABLE_FLAG = 0b1
-const AUTOSKIP_FLAG = 0b01
+const AUTOSKIP_FLAG = 0b10
 
 
 var autoskip : bool = false		## Détermine si la boite de dialogue se ferme automatiquement après la fin du texte.
@@ -76,7 +76,7 @@ func hide_textbox():
 
 func flush_textbox():
 	end_symbol.text = ""
-	label.text = ""
+	label.clear()
 	textbox_image.hide()
 
 func show_textbox():
@@ -95,10 +95,11 @@ func display_text():
 	tween = create_tween()
 	tween.finished.connect(_on_tween_finished)
 	
-	var duration = CHAR_DISPLAY_DURATION * len(label.text) / 1000.0
+	var duration = CHAR_DISPLAY_DURATION * len(label.get_parsed_text()) / 1000.0
 	duration = duration * (100/vitesse_defilement)
 	
-	print("texte :", label.text, ", len : ", len(label.text))
+	print("texte : ", label.get_parsed_text())
+	print("len : ", len(label.get_parsed_text()))
 	print("vitesse défilement :", vitesse_defilement)
 	print("duration : ", duration)
 	
@@ -114,17 +115,22 @@ func _load_content(content : TextboxContent):
 	if content.texture != null:
 		textbox_image.texture = content.texture
 		textbox_image.show()
+
+	# Font
+	label.push_font(content.font, content.font_size)
+	label.push_color(content.font_color)
 	
 	#Texte
-	label.text = content.texte
-	
+	label.append_text(content.texte)
+	label.pop_all()
+
 	#Vitesse défilement du texte
 	vitesse_defilement = content.vitesse_défilement_texte
 
 	# Skip options
 	autoskip = content.skip_options & AUTOSKIP_FLAG
 	inskipable = content.skip_options & INSKIPABLE_FLAG
-
+	
 
 func _on_tween_finished():
 	end_symbol.text = "v"

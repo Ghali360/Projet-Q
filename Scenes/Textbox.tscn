@@ -56,14 +56,18 @@ layout_mode = 2
 texture = ExtResource("2_db1ld")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="TexboxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 100)
+[node name="Label" type="RichTextLabel" parent="TexboxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 45
-text = "slt ta des jeux sur ton telpehone"
-autowrap_mode = 2
+theme_override_font_sizes/bold_italics_font_size = 45
+theme_override_font_sizes/italics_font_size = 45
+theme_override_font_sizes/mono_font_size = 45
+theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/bold_font_size = 45
+bbcode_enabled = true
+text = "slt ta des [font_size=60]jeux[/font_size] sur ton [b][color=green]telpehone[/color][/b]
+j'adore le [font=\"res://resources/fonts/comic_sans_ms.tres\"][color=red][u]gaming[/u][/color][/font]
+"
 
 [node name="End" type="Label" parent="TexboxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(23, 55)
