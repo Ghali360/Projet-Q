@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4ypf8sdtqmel"]
+[gd_scene load_steps=22 format=3 uid="uid://b4ypf8sdtqmel"]
 
 [ext_resource type="Script" uid="uid://wpar88hq1oqg" path="res://script/battle.gd" id="1_u22qb"]
 [ext_resource type="Texture2D" uid="uid://qxtiyix6nsyl" path="res://sprites/Gare_d'Orsay_le_31_juillet_2014.jpg" id="1_wvl2i"]
@@ -12,6 +12,7 @@
 [ext_resource type="StyleBox" uid="uid://bfei7qraproo7" path="res://resources/couleurs/Attaque_buutton.tres" id="10_262jj"]
 [ext_resource type="Theme" uid="uid://dou7dhmluhch6" path="res://resources/bouton_attaquer.tres" id="11_l0uqe"]
 [ext_resource type="Script" uid="uid://dv37f81mw41vv" path="res://script/Textbox/textbox_manager.gd" id="12_l0uqe"]
+[ext_resource type="Script" uid="uid://dsc287dxhgn5m" path="res://script/Textbox/textbox_content.gd" id="13_xmk5i"]
 
 [sub_resource type="Theme" id="Theme_262jj"]
 
@@ -26,6 +27,42 @@ cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
+
+[sub_resource type="Resource" id="Resource_tiokb"]
+script = ExtResource("13_xmk5i")
+texture = ExtResource("4_6yjxy")
+texte = "haha c moi macron je vais aneantir le monde"
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_0qgg5"]
+script = ExtResource("13_xmk5i")
+texture = ExtResource("5_qxnh6")
+texte = "non arete ces pa bien"
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_n5y6x"]
+script = ExtResource("13_xmk5i")
+texture = ExtResource("4_6yjxy")
+texte = "oh nn c vrai"
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_jr0ro"]
+script = ExtResource("13_xmk5i")
+texture = ExtResource("4_6yjxy")
+texte = "ok jarete alors"
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_6xsll"]
+script = ExtResource("13_xmk5i")
+texture = ExtResource("5_qxnh6")
+texte = "youpi"
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_imcj7"]
+script = ExtResource("13_xmk5i")
+texture = ExtResource("4_6yjxy")
+texte = "youpi"
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
 [node name="Battle" type="Control"]
 layout_mode = 3
@@ -185,6 +222,7 @@ text = "Attaquer"
 
 [node name="TextboxManager" type="Node" parent="."]
 script = ExtResource("12_l0uqe")
+lignes_de_dialogue = Array[ExtResource("13_xmk5i")]([SubResource("Resource_tiokb"), SubResource("Resource_0qgg5"), SubResource("Resource_n5y6x"), SubResource("Resource_jr0ro"), SubResource("Resource_6xsll"), SubResource("Resource_imcj7")])
 metadata/_custom_type_script = "uid://dv37f81mw41vv"
 
 [connection signal="pressed" from="AttaqueButton" to="." method="_on_attaque_button_pressed"]

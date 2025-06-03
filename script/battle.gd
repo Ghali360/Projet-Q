@@ -12,13 +12,14 @@ func _ready() -> void:
 	$Textbox.hide()
 	$AttaqueButton.hide()
 	
-	display_text("Oh non ! un %s sauvage attaque !" % [ennemi.name.to_upper()])
-	await textbox_closed
+	$TextboxManager.start_dialogue()
+	#display_text("Oh non ! un %s sauvage attaque !" % [ennemi.name.to_upper()])
+	#await textbox_closed
 	$AttaqueButton.show()
 
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("action"):
+	if Input.is_action_just_pressed("ui_accept"):
 		$Textbox.hide()
 		emit_signal("textbox_closed") 
 

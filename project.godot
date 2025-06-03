@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Projet-Q-Godot"
-run/main_scene="uid://bt7l47r1o15ww"
+run/main_scene="uid://b4ypf8sdtqmel"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://sprites/icon.svg"
 
