@@ -4,18 +4,31 @@ extends CanvasLayer
 @onready var label : Label = $TexboxContainer/MarginContainer/HBoxContainer/Label
 @onready var end_symbol : Label = $TexboxContainer/MarginContainer/HBoxContainer/End
 @onready var textbox_image : TextureRect = $TexboxContainer/MarginContainer/HBoxContainer/MarginContainer/CharacterImage
-var tween : Tween # Tween pour l'animation du texte
+var tween : Tween ## Tween pour l'animation du texte.
 
+## La durée que met chaque caractère à s'afficher dans la boite de dialogue.
 var CHAR_DISPLAY_DURATION = 0.05
 
+## Une Textbox peut se trouver dans 3 états différents : [br]
+## - State.[b]READY[/b] : La Textbox est en attente, pret à afficher sa prochaine ligne de dialogue. [br]   
+## - State.[b]WRITING[/b] : Le texte est en train de s'écrire. [br]
+## - State.[b]FINISHED[/b] : Le texte a fini d'etre écrit, la Textbox est en attente de l'input du joueur. 
 enum State {
+	## La Textbox est en attente, pret à afficher sa prochaine ligne de dialogue.
 	READY,
+	## Le texte est en train de s'écrire.
 	WRITING,
-	FINISHED
-} 
+	## Le texte a fini d'etre écrit, la Textbox est en attente de l'input du joueur.
+	FINISHED,
+}
 
-var current_state : State = State.READY
-var queue : Array[TextboxContent] = []
+
+## L'état courant de la Textbox. [br]
+## Voir [enum State]
+var current_state : State = State.READY 
+
+## File d'attente stockant les prochaines boites de dialogue à afficher.
+var queue : Array[TextboxContent] = []  
 
 func _ready() -> void:
 	textbox_container = $TexboxContainer
@@ -23,6 +36,7 @@ func _ready() -> void:
 	end_symbol = $TexboxContainer/MarginContainer/HBoxContainer/End
 	textbox_image = $TexboxContainer/MarginContainer/HBoxContainer/MarginContainer/CharacterImage	
 	hide_textbox()
+	
 
 func _process(_delta: float) -> void:
 	match current_state:
@@ -31,14 +45,14 @@ func _process(_delta: float) -> void:
 				display_text()
 			
 		State.WRITING:
-			if Input.is_action_just_pressed("ui_accept"):
+			if Input.is_action_just_pressed("accept"):
 				tween.stop()
 				label.visible_ratio = 1
 				end_symbol.text = "v"
 				current_state = State.FINISHED
 				
 		State.FINISHED:
-			if Input.is_action_just_pressed("ui_accept"):
+			if Input.is_action_just_pressed("accept"):
 				if queue.is_empty():
 					hide_textbox()
 				else:
