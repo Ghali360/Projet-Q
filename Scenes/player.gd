@@ -13,7 +13,7 @@ var droite : bool = false
 var gauche : bool = false
 var currentAnim : String = ""
 var LastDirection : String = ""
-
+var position_history := []
 
 
 
@@ -63,7 +63,10 @@ func _process(delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	move_and_slide()
-	
+	position_history.append(global_position)
+	if position_history.size() > 100:
+		position_history.pop_front()
+		
 func UpdateAnimation() -> void :
 	animation_player.play (state + "_" + AnimDirection())
 	

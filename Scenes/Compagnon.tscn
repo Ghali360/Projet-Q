@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://p2yws5av6ed5"]
+
+[ext_resource type="Script" uid="uid://yuw7tgaoqqjm" path="res://Compagnons.gd" id="1_6xyiq"]
+[ext_resource type="Texture2D" uid="uid://dpwn3ddh85m52" path="res://resources/Player/QuentinLeft1.png" id="2_7mxwk"]
+[ext_resource type="PackedScene" uid="uid://csp3rqwxqns2n" path="res://Scenes/debug.tscn" id="3_7mxwk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5b54"]
+size = Vector2(20, 45)
+
+[node name="Node2D" type="CharacterBody2D"]
+script = ExtResource("1_6xyiq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_7mxwk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_v5b54")
+
+[node name="Label" parent="." instance=ExtResource("3_7mxwk")]
+offset_left = -51.0
+offset_top = -59.0
+offset_right = 154.0
+offset_bottom = -33.0
