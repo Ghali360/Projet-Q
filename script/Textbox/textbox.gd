@@ -6,6 +6,9 @@ extends CanvasLayer
 @onready var textbox_image : TextureRect = $TexboxContainer/MarginContainer/HBoxContainer/MarginContainer/CharacterImage
 var tween : Tween ## Tween pour l'animation du texte.
 
+## Signal émis lorsque la textbox se ferme.
+signal textbox_closed
+
 ## La (durée en millisecondes) que met chaque caractère à s'afficher dans la boite de dialogue.
 const CHAR_DISPLAY_DURATION = 50
 
@@ -65,6 +68,8 @@ func _process(_delta: float) -> void:
 			if Input.is_action_just_pressed("accept") or autoskip:
 				if queue.is_empty():
 					hide_textbox()
+					textbox_closed.emit()
+					
 				else:
 					flush_textbox()
 					current_state = State.READY
@@ -98,10 +103,10 @@ func display_text():
 	var duration = CHAR_DISPLAY_DURATION * len(label.get_parsed_text()) / 1000.0
 	duration = duration * (100/vitesse_defilement)
 	
-	print("texte : ", label.get_parsed_text())
-	print("len : ", len(label.get_parsed_text()))
-	print("vitesse défilement :", vitesse_defilement)
-	print("duration : ", duration)
+	#print("texte : ", label.get_parsed_text())
+	#print("len : ", len(label.get_parsed_text()))
+	#print("vitesse défilement :", vitesse_defilement)
+	#print("duration : ", duration)
 	
 	current_state = State.WRITING
 	tween.tween_property(label, "visible_ratio", 1, duration)
@@ -117,7 +122,9 @@ func _load_content(content : TextboxContent):
 		textbox_image.show()
 
 	# Font
-	label.push_font(content.font, content.font_size)
+	if content.font != null:
+		label.push_font(content.font)
+	label.push_font_size(content.font_size)
 	label.push_color(content.font_color)
 	
 	#Texte

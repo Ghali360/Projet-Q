@@ -1,9 +1,7 @@
 extends Control
 
-## Signal émis quand la boite de texte se ferme.
-signal textbox_closed
-
 @export var ennemi : Resource
+@onready var intro_dialogue = $IntroDialogue
 
 func _ready() -> void:
 	set_pv($QuentinContainer/ProgressBar, Stats.pv_max, Stats.current_pv)
@@ -12,7 +10,7 @@ func _ready() -> void:
 	
 	$AttaqueButton.hide()
 	
-	$TextboxManager.start_dialogue()
+	intro_dialogue.start_dialogue(2)
 	$AttaqueButton.show()
 
 
@@ -25,7 +23,7 @@ func set_pv(progressBar : ProgressBar, pv_max, current_pv):
 
 func _on_attaque_button_pressed() -> void:
 	$AttaqueButton.hide()
-	#display_text("Quentin attaque !");
-	await textbox_closed;
-	
+	intro_dialogue.finish_dialogue()
+
+	await intro_dialogue.dialogue_stopped
 	$AttaqueButton.show()

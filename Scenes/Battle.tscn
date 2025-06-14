@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b4ypf8sdtqmel"]
+[gd_scene load_steps=26 format=3 uid="uid://b4ypf8sdtqmel"]
 
 [ext_resource type="Script" uid="uid://wpar88hq1oqg" path="res://script/battle.gd" id="1_u22qb"]
 [ext_resource type="Texture2D" uid="uid://qxtiyix6nsyl" path="res://sprites/Gare_d'Orsay_le_31_juillet_2014.jpg" id="1_wvl2i"]
@@ -10,6 +10,22 @@
 [ext_resource type="Script" uid="uid://dv37f81mw41vv" path="res://script/Textbox/dialogue_manager.gd" id="10_l0uqe"]
 [ext_resource type="Theme" uid="uid://dou7dhmluhch6" path="res://resources/bouton_attaquer.tres" id="11_l0uqe"]
 [ext_resource type="Script" uid="uid://dsc287dxhgn5m" path="res://script/Textbox/textbox_content.gd" id="13_xmk5i"]
+
+[sub_resource type="Resource" id="Resource_7i387"]
+script = ExtResource("13_xmk5i")
+texte = "Quentin attaque !"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_nttxn"]
+script = ExtResource("13_xmk5i")
+texte = "eeeeeeeee"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
 [sub_resource type="Resource" id="Resource_262jj"]
 script = ExtResource("13_xmk5i")
@@ -78,6 +94,29 @@ texte = "youpi"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
 font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_qxnh6"]
+script = ExtResource("13_xmk5i")
+texture = ExtResource("4_6yjxy")
+texte = "en fait g menti"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="SystemFont" id="SystemFont_l0uqe"]
+
+[sub_resource type="Resource" id="Resource_xmk5i"]
+script = ExtResource("13_xmk5i")
+texture = ExtResource("5_qxnh6")
+texte = "maudis-sois tu   [font_size=60][font=\"res://resources/fonts/comic_sans_ms.tres\"]marcon[/font][/font_size]   j'aurai ta peau"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = true
+font = SubResource("SystemFont_l0uqe")
+font_color = Color(1, 1, 1, 1)
+font_size = 30
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
 [sub_resource type="Resource" id="Resource_l0uqe"]
@@ -189,25 +228,26 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 434.0
-offset_top = 543.0
-offset_right = -501.0
-offset_bottom = -50.0
+offset_left = 445.0
+offset_top = 81.0
+offset_right = -490.0
+offset_bottom = -512.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("11_l0uqe")
 text = "Attaquer"
 
-[node name="Attaque_dialogue" type="Node" parent="AttaqueButton"]
+[node name="AttaqueDialogue" type="Node" parent="AttaqueButton"]
 script = ExtResource("10_l0uqe")
+lignes_de_dialogue = Array[ExtResource("13_xmk5i")]([SubResource("Resource_7i387"), SubResource("Resource_nttxn")])
 metadata/_custom_type_script = "uid://dv37f81mw41vv"
 
-[node name="TextboxManager" type="Node" parent="."]
+[node name="IntroDialogue" type="Node" parent="."]
 script = ExtResource("10_l0uqe")
-lignes_de_dialogue = Array[ExtResource("13_xmk5i")]([SubResource("Resource_262jj"), SubResource("Resource_tiokb"), SubResource("Resource_0qgg5"), SubResource("Resource_n5y6x"), SubResource("Resource_jr0ro"), SubResource("Resource_6xsll"), SubResource("Resource_imcj7"), SubResource("Resource_l0uqe")])
+lignes_de_dialogue = Array[ExtResource("13_xmk5i")]([SubResource("Resource_262jj"), SubResource("Resource_tiokb"), SubResource("Resource_0qgg5"), SubResource("Resource_n5y6x"), SubResource("Resource_jr0ro"), SubResource("Resource_6xsll"), SubResource("Resource_imcj7"), SubResource("Resource_qxnh6"), SubResource("Resource_xmk5i"), SubResource("Resource_l0uqe")])
 font = SubResource("SystemFont_262jj")
-font_color = Color(1, 0.509804, 0, 1)
 font_size = 40
 metadata/_custom_type_script = "uid://dv37f81mw41vv"
 
 [connection signal="pressed" from="AttaqueButton" to="." method="_on_attaque_button_pressed"]
+[connection signal="dialogue_stopped" from="AttaqueButton/AttaqueDialogue" to="." method="_on_dialogue_stopped"]
