@@ -1,16 +1,26 @@
 extends Control
 
 @export var ennemi : Resource
+
+@export var pv : int 
+
 @onready var intro_dialogue = $IntroDialogue
 
 func _ready() -> void:
+	
+	
 	set_pv($QuentinContainer/ProgressBar, Stats.pv_max, Stats.current_pv)
 	set_pv($EnemyContainer/ProgressBar, ennemi.pv, ennemi.pv)
 	$EnemyContainer/Enemy.texture = ennemi.texture
 	
 	$AttaqueButton.hide()
 	
-	intro_dialogue.start_dialogue(2)
+	intro_dialogue.start_dialogue(3)
+	await intro_dialogue.dialogue_stopped
+	intro_dialogue.continue_dialogue(3)
+	intro_dialogue.finish_dialogue()
+	
+	
 	$AttaqueButton.show()
 
 
@@ -23,7 +33,7 @@ func set_pv(progressBar : ProgressBar, pv_max, current_pv):
 
 func _on_attaque_button_pressed() -> void:
 	$AttaqueButton.hide()
-	intro_dialogue.finish_dialogue()
+	$AttaqueButton/AttaqueDialogue.start_dialogue()
 
-	await intro_dialogue.dialogue_stopped
+	await $AttaqueButton/AttaqueDialogue.dialogue_stopped
 	$AttaqueButton.show()

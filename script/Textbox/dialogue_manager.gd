@@ -2,8 +2,8 @@ extends Node
 class_name DialogueManager
 ## Permet de gérer un dialogue par boite de texte. 
 
-signal dialogue_finished
-signal dialogue_stopped
+signal dialogue_finished 	## Signal émis lorsque toutes les boites de dialogues ont été affichées.
+signal dialogue_stopped 	## Signal émis lorsque la boite de dialogue s'est fermée.
 
 @onready var textbox_scene = preload("res://Scenes/Textbox.tscn")
 var textbox : Node
@@ -48,8 +48,7 @@ func start_dialogue(n:int = 0):
 	
 	current_dialogue_index = 0
 	_create_textbox()
-	
-	print("load lignes de dialogues dans le textbox")
+
 	# On affiche tout le texte restant
 	if n <= 0:
 		for content : TextboxContent in lignes_de_dialogue:
@@ -90,6 +89,7 @@ func finish_dialogue():
 	for i in range(current_dialogue_index, nb_lignes):
 		_load_textbox_content(lignes_de_dialogue[i])
 	current_dialogue_index = nb_lignes
+
 
 
 ## Charge un textContent dans le Textbox.
