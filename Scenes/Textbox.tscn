@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://bt7l47r1o15ww"]
+[gd_scene load_steps=3 format=3 uid="uid://bt7l47r1o15ww"]
 
-[ext_resource type="Script" uid="uid://du3j5wrua7af7" path="res://script/Textbox/textbox.gd" id="1_ktxlv"]
 [ext_resource type="Texture2D" uid="uid://cmo0ep0i50psn" path="res://sprites/Macron.png" id="2_db1ld"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2h2o"]
@@ -13,7 +12,6 @@ border_color = Color(1, 1, 1, 1)
 border_blend = true
 
 [node name="Textbox" type="CanvasLayer"]
-script = ExtResource("1_ktxlv")
 
 [node name="TexboxContainer" type="MarginContainer" parent="."]
 anchors_preset = 12

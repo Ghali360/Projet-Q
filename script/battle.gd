@@ -1,5 +1,6 @@
 extends Control
 
+@export var perso : Personnage
 @export var ennemi : Resource
 
 @export var pv : int 

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Personnage" load_steps=5 format=3 uid="uid://ceeb3h6tbh3vh"]
+
+[ext_resource type="Script" uid="uid://bx4idiyd3kq1x" path="res://script/arme.gd" id="1_ob5a6"]
+[ext_resource type="Script" uid="uid://d1mhmueurm2oc" path="res://script/personnage.gd" id="1_vpfle"]
+[ext_resource type="Texture2D" uid="uid://cmo0ep0i50psn" path="res://sprites/Macron.png" id="2_k8012"]
+
+[sub_resource type="Resource" id="Resource_ybyfu"]
+script = ExtResource("1_ob5a6")
+metadata/_custom_type_script = "uid://bx4idiyd3kq1x"
+
+[resource]
+script = ExtResource("1_vpfle")
+nom = "Atalin"
+pv = 80
+sprite = ExtResource("2_k8012")
+arme = SubResource("Resource_ybyfu")
+metadata/_custom_type_script = "uid://d1mhmueurm2oc"
