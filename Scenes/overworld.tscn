@@ -12,8 +12,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="player" parent="." instance=ExtResource("1_6s5ae")]
-position = Vector2(402, 237)
+position = Vector2(320, 238)
 
 [node name="Node2D" parent="." instance=ExtResource("2_i8gr5")]
+z_index = -1
 position = Vector2(321, 239)
 RefDistance = 110.0

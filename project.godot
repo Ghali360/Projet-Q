@@ -13,7 +13,10 @@ config_version=5
 config/name="Projet-Q-Godot"
 run/main_scene="uid://bt7l47r1o15ww"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0.00871159, 0.00512287, 0.0801396, 1)
+boot_splash/image="uid://cmo0ep0i50psn"
 config/icon="res://sprites/icon.svg"
+boot_splash/minimum_display_time=1500
 
 [autoload]
 
