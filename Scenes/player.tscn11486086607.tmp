@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://yywv76874k0l"]
+[gd_scene load_steps=15 format=3 uid="uid://yywv76874k0l"]
 
-[ext_resource type="Script" uid="uid://bl1u8m0m010vc" path="res://script/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://1xiyjrt5l5m0" path="res://script/trail.gd" id="1_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://dr1kqdtbc1gnq" path="res://resources/Player/Quentinquimarche.png" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://bc7xa6h3agonn" path="res://Scenes/trail.tscn" id="3_vgqql"]
-[ext_resource type="Script" uid="uid://b7evq4bk2pvws" path="res://script/trail (2).gd" id="4_vgqql"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(64.25, 98)
@@ -166,7 +165,7 @@ _data = {
 
 [node name="player" type="CharacterBody2D"]
 motion_mode = 1
-script = ExtResource("1_cvnsp")
+script = ExtResource("1_6t5aa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -185,9 +184,5 @@ libraries = {
 }
 
 [node name="Trail" parent="." instance=ExtResource("3_vgqql")]
-show_behind_parent = true
 top_level = true
-script = ExtResource("4_vgqql")
-
-[connection signal="Marche" from="." to="Trail" method="_on_player_marche"]
-[connection signal="idle" from="." to="Trail" method="_on_player_idle"]
+position = Vector2(300, 167)

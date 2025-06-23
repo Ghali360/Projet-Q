@@ -5,16 +5,18 @@
 [ext_resource type="PackedScene" uid="uid://csp3rqwxqns2n" path="res://Scenes/debug.tscn" id="3_7mxwk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5b54"]
-size = Vector2(20, 45)
+size = Vector2(43, 93)
 
 [node name="Node2D" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_6xyiq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.236, 2.236)
 texture = ExtResource("2_7mxwk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0.5)
+position = Vector2(-2.5, 3.5)
 shape = SubResource("RectangleShape2D_v5b54")
 
 [node name="Label" parent="." instance=ExtResource("3_7mxwk")]

@@ -1,12 +1,13 @@
 class_name player
 extends CharacterBody2D
 
-var speed : float = 200
+@export var speed : float = 200
 var direction : Vector2 = Vector2.ZERO
 var cardinal_direction : Vector2 = Vector2.DOWN
 var state : String = "idle"
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var trail_line : Line2D = $TrailLine
 var haut : bool = false
 var bas : bool = false
 var droite : bool = false
@@ -14,7 +15,8 @@ var gauche : bool = false
 var currentAnim : String = ""
 var LastDirection : String = ""
 var position_history := []
-
+signal Marche
+signal idle
 
 
 func _process(delta: float) -> void:
@@ -22,7 +24,7 @@ func _process(delta: float) -> void:
 	direction.x = Input.get_action_strength("droite") - Input.get_action_strength("gauche")
 	direction.y = Input.get_action_strength("bas") - Input.get_action_strength("haut")
 	
-	velocity = direction * speed
+	velocity = direction.normalized() * speed
 	cardinal_direction = direction
 
 	if Input.is_action_pressed("haut") :
@@ -59,14 +61,16 @@ func _process(delta: float) -> void:
 	if targetAnim != currentAnim:
 		animation_player.play(targetAnim)
 		currentAnim = targetAnim
+	emit_signal(state)
 	
 	
 func _physics_process(delta: float) -> void:
 	move_and_slide()
+	emit_signal(state)
 	position_history.append(global_position)
 	if position_history.size() > 100:
 		position_history.pop_front()
-		
+	
 func UpdateAnimation() -> void :
 	animation_player.play (state + "_" + AnimDirection())
 	
@@ -89,3 +93,7 @@ func AnimDirection() -> String:
 		else :
 			LastDirection = "up"
 			return "up"
+			
+func _add_trail_point() -> void:
+	var pos = global_position
+#
