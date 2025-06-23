@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://p2yws5av6ed5"]
+[gd_scene load_steps=6 format=3 uid="uid://p2yws5av6ed5"]
 
 [ext_resource type="Script" uid="uid://yuw7tgaoqqjm" path="res://Compagnons.gd" id="1_6xyiq"]
-[ext_resource type="Texture2D" uid="uid://dpwn3ddh85m52" path="res://resources/Player/QuentinLeft1.png" id="2_7mxwk"]
+[ext_resource type="Texture2D" uid="uid://dr1kqdtbc1gnq" path="res://resources/Player/Quentinquimarche.png" id="2_7mxwk"]
 [ext_resource type="PackedScene" uid="uid://csp3rqwxqns2n" path="res://Scenes/debug.tscn" id="3_7mxwk"]
+[ext_resource type="PackedScene" uid="uid://crbup7771tyg4" path="res://Scenes/animation_marche.tscn" id="4_v5b54"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5b54"]
 size = Vector2(43, 93)
@@ -14,13 +15,18 @@ script = ExtResource("1_6xyiq")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2.236, 2.236)
 texture = ExtResource("2_7mxwk")
+hframes = 12
+vframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.5, 3.5)
 shape = SubResource("RectangleShape2D_v5b54")
+disabled = true
 
 [node name="Label" parent="." instance=ExtResource("3_7mxwk")]
 offset_left = -51.0
 offset_top = -59.0
 offset_right = 154.0
 offset_bottom = -33.0
+
+[node name="AnimationPlayer" parent="." instance=ExtResource("4_v5b54")]
