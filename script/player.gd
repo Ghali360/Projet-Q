@@ -18,7 +18,6 @@ var position_history := []
 signal Marche
 signal idle
 
-
 func _process(delta: float) -> void:
 	
 	direction.x = Input.get_action_strength("droite") - Input.get_action_strength("gauche")
@@ -26,7 +25,7 @@ func _process(delta: float) -> void:
 	
 	velocity = direction.normalized() * speed
 	cardinal_direction = direction
-
+	
 	if Input.is_action_pressed("haut") :
 		haut = true
 		#UpdateAnimation()
