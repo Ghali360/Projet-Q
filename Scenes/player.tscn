@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://yywv76874k0l"]
+
+[ext_resource type="Script" uid="uid://bl1u8m0m010vc" path="res://script/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://dr1kqdtbc1gnq" path="res://resources/Player/Quentinquimarche.png" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://crbup7771tyg4" path="res://Scenes/animation_marche.tscn" id="3_fkybt"]
+[ext_resource type="PackedScene" uid="uid://bc7xa6h3agonn" path="res://Scenes/trail.tscn" id="3_vgqql"]
+[ext_resource type="Script" uid="uid://b7evq4bk2pvws" path="res://script/trail (2).gd" id="4_vgqql"]
+[ext_resource type="PackedScene" uid="uid://cwlpnhod7o8s0" path="res://Scenes/interacting_component.tscn" id="6_x3wgy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
+size = Vector2(64.25, 98)
+
+[node name="player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_cvnsp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2.23571, 2.23571)
+texture = ExtResource("1_v0iea")
+hframes = 12
+vframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 5)
+shape = SubResource("RectangleShape2D_cvnsp")
+
+[node name="AnimationPlayer" parent="." instance=ExtResource("3_fkybt")]
+
+[node name="Trail" parent="." instance=ExtResource("3_vgqql")]
+show_behind_parent = true
+top_level = true
+script = ExtResource("4_vgqql")
+
+[node name="InteractionManager" parent="." instance=ExtResource("6_x3wgy")]
+
+[connection signal="Marche" from="." to="Trail" method="_on_player_marche"]
+[connection signal="idle" from="." to="Trail" method="_on_player_idle"]

@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://p2yws5av6ed5"]
+
+[ext_resource type="Script" uid="uid://yuw7tgaoqqjm" path="res://script/Compagnons.gd" id="1_6xyiq"]
+[ext_resource type="Texture2D" uid="uid://dr1kqdtbc1gnq" path="res://resources/Player/Quentinquimarche.png" id="2_7mxwk"]
+[ext_resource type="Shader" uid="uid://ccq2822qlifq4" path="res://Shaders/CRT.gdshader" id="2_celld"]
+[ext_resource type="PackedScene" uid="uid://csp3rqwxqns2n" path="res://Scenes/debug.tscn" id="3_7mxwk"]
+[ext_resource type="PackedScene" uid="uid://crbup7771tyg4" path="res://Scenes/animation_marche.tscn" id="4_v5b54"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nrkho"]
+resource_local_to_scene = true
+shader = ExtResource("2_celld")
+shader_parameter/scanline_strength = 0.431
+shader_parameter/distortion_strength = 0.0
+shader_parameter/chroma_shift_strength = 0.426
+shader_parameter/saturation_boost = 2.208
+shader_parameter/screen_resolution = Vector2(320, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5b54"]
+size = Vector2(43, 93)
+
+[node name="Node2D" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_6xyiq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_nrkho")
+position = Vector2(23, 7)
+scale = Vector2(2.236, 2.236)
+texture = ExtResource("2_7mxwk")
+hframes = 12
+vframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 13)
+shape = SubResource("RectangleShape2D_v5b54")
+disabled = true
+
+[node name="Label" parent="." instance=ExtResource("3_7mxwk")]
+offset_left = -51.0
+offset_top = -59.0
+offset_right = 154.0
+offset_bottom = -33.0
+
+[node name="AnimationPlayer" parent="." instance=ExtResource("4_v5b54")]
