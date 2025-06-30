@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://d4bfjquahvufe"]
+
+[ext_resource type="Shader" uid="uid://brxve2dahsyyu" path="res://Shaders/ShaderBasic.gdshader" id="1_b3gvr"]
+[ext_resource type="Script" uid="uid://cj6itnmvjoam8" path="res://Personnages/PNJ/Scipts Test/Azog PNJ.gd" id="1_ujxjc"]
+[ext_resource type="Texture2D" uid="uid://bj43l2jug1t66" path="res://Personnages/PNJ/Sprites/azog.png" id="2_b3gvr"]
+[ext_resource type="PackedScene" uid="uid://jrg1fwnojhaq" path="res://Overworld/Interactions/interactible.tscn" id="3_k3j7d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3j7d"]
+shader = ExtResource("1_b3gvr")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b3gvr"]
+resource_local_to_scene = true
+shader = ExtResource("1_b3gvr")
+shader_parameter/flash_color = Color(0.898438, 0.119324, 0.119324, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_brfj7"]
+radius = 53.0
+height = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m2t52"]
+radius = 88.6848
+
+[node name="Azog" type="StaticBody2D"]
+material = SubResource("ShaderMaterial_k3j7d")
+position = Vector2(1088, 566)
+script = ExtResource("1_ujxjc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_b3gvr")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_b3gvr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, -3)
+shape = SubResource("CapsuleShape2D_brfj7")
+
+[node name="Interactible" parent="." instance=ExtResource("3_k3j7d")]
+interact_name = "Frapper Azog"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Interactible"]
+shape = SubResource("CircleShape2D_m2t52")

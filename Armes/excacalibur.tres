@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Arme" load_steps=4 format=3 uid="uid://c2rqic85e6p4t"]
+
+[ext_resource type="Script" uid="uid://bx4idiyd3kq1x" path="res://Armes/arme.gd" id="1_h1h13"]
+[ext_resource type="Script" uid="uid://c4fhxf8h6riym" path="res://Compétences/competence.gd" id="1_i1p3u"]
+[ext_resource type="Resource" uid="uid://bm73oqbvd2trp" path="res://Compétences/torrent_de_caca.tres" id="2_yhlx5"]
+
+[resource]
+script = ExtResource("1_h1h13")
+nom = "Excacalibur"
+niveau = 1
+attaque = 50
+competences = Array[ExtResource("1_i1p3u")]([ExtResource("2_yhlx5")])
+metadata/_custom_type_script = "uid://bx4idiyd3kq1x"

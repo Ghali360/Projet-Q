@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Competence" load_steps=2 format=3 uid="uid://bm73oqbvd2trp"]
+
+[ext_resource type="Script" uid="uid://c4fhxf8h6riym" path="res://Compétences/competence.gd" id="1_4vdvr"]
+
+[resource]
+script = ExtResource("1_4vdvr")
+name = "Torrent de caca"
+description = "un grooooooooooooooooos torrent de caca miam la"
+metadata/_custom_type_script = "uid://c4fhxf8h6riym"
