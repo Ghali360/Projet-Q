@@ -1,9 +1,9 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cdaas0x1as8u5"]
+[gd_resource type="Resource" script_class="TextboxContent" load_steps=2 format=3 uid="uid://cdaas0x1as8u5"]
 
 [ext_resource type="Script" uid="uid://dsc287dxhgn5m" path="res://script/Textbox/textbox_content.gd" id="1_a7k1q"]
-[ext_resource type="Texture2D" uid="uid://cmo0ep0i50psn" path="res://sprites/Macron.png" id="1_ditmx"]
 
 [resource]
 script = ExtResource("1_a7k1q")
-image = ExtResource("1_ditmx")
 texte = "ziziee "
+"vitesse_défilement_texte" = 100.0
+skip_options = 0

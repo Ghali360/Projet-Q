@@ -19,5 +19,6 @@ nom = "Atalin"
 sprite = ExtResource("2_k8012")
 pv_max = 0
 defense = 0
+pv = 80
 arme = SubResource("Resource_ybyfu")
 metadata/_custom_type_script = "uid://d1mhmueurm2oc"
