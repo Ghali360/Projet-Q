@@ -32,7 +32,7 @@ show_behind_parent = true
 top_level = true
 script = ExtResource("4_vgqql")
 
-[node name="Interacting_component" parent="." instance=ExtResource("6_x3wgy")]
+[node name="InteractionManager" parent="." instance=ExtResource("6_x3wgy")]
 
 [connection signal="Marche" from="." to="Trail" method="_on_player_marche"]
 [connection signal="idle" from="." to="Trail" method="_on_player_idle"]
