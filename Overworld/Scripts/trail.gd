@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 			var pos = _get_position()
 			add_point(pos)
 			NbrP += 1 
-			print("point"+str(NbrP))
+			#print("point"+str(NbrP))
 			timer = FREQUENCE_TIMER
 
 

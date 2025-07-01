@@ -5,6 +5,7 @@ const NbrPointMax : int = 10
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @export var speed := 200
+@export var timerAnim : float = 0.250
 var player: CharacterBody2D
 var target_index := 0
 var target_pos := Vector2.ZERO
@@ -32,6 +33,8 @@ func AssingPlayer():
 		print("Trail")
 
 func _process(delta: float) -> void:
+	if timerAnim >= 0 :
+		timerAnim -= delta
 	_get_animation_direction(velocity)
 
 func _physics_process(delta: float) -> void:
@@ -62,14 +65,18 @@ func _physics_process(delta: float) -> void:
 func _get_animation_direction(vel: Vector2) -> String:
 	if vel == Vector2.ZERO:
 		return last_direction  # Garde la dernière direction connue
-	if abs(vel.x) > abs(vel.y):
-		if vel.x > 0:
+	if abs(vel.x) > abs(vel.y) and timerAnim <= 0:
+		if vel.x > 0 and timerAnim <= 0:
 			direction = "droite"
-		else:
+			timerAnim = 0.15
+		elif vel.x < 0 and timerAnim <= 0:
 			direction = "gauche"
+			timerAnim = 0.15
 	else:
-		if vel.y > 0:
+		if vel.y > 0 and timerAnim <= 0:
 			direction = "down"
-		else:
+			timerAnim = 0.15
+		elif vel.y < 0 and timerAnim <= 0:
 			direction = "up"
+			timerAnim = 0.15
 	return direction

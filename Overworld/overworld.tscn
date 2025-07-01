@@ -1,24 +1,102 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0x4fcy186qq5"]
+[gd_scene load_steps=14 format=3 uid="uid://d0x4fcy186qq5"]
 
 [ext_resource type="PackedScene" uid="uid://yywv76874k0l" path="res://Personnages/PJ/Quentin/player.tscn" id="1_6s5ae"]
+[ext_resource type="Script" uid="uid://eoncuy4owbe8" path="res://Overworld/overworld.gd" id="1_h2pad"]
 [ext_resource type="PackedScene" uid="uid://p2yws5av6ed5" path="res://Personnages/PJ/Compagnons Test/Compagnon.tscn" id="2_i8gr5"]
 [ext_resource type="PackedScene" uid="uid://d4bfjquahvufe" path="res://Items/Azog.tscn" id="3_i8gr5"]
+[ext_resource type="PackedScene" uid="uid://dn3t3vuy1tjsd" path="res://Personnages/PNJ/Chong.tscn" id="4_begid"]
+[ext_resource type="Texture2D" uid="uid://cquuhv1mrt5bv" path="res://Overworld/Decors/Chambre de quentin.png" id="5_h2pad"]
 
-[node name="Overworld" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2pad"]
+size = Vector2(1091.5, 235)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hob5j"]
+size = Vector2(117, 1097)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yv805"]
+size = Vector2(112, 1104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0nop"]
+size = Vector2(448, 117)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4uj07"]
+size = Vector2(220, 155)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wvds"]
+size = Vector2(76.5, 409)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bmk4"]
+size = Vector2(165, 20)
+
+[node name="Overworld" type="Node2D"]
+script = ExtResource("1_h2pad")
 
 [node name="player" parent="." instance=ExtResource("1_6s5ae")]
-position = Vector2(320, 238)
+position = Vector2(1065, 899)
 
 [node name="Compagnon 1" parent="." instance=ExtResource("2_i8gr5")]
 z_index = -1
-position = Vector2(321, 239)
+position = Vector2(1044, 882)
 RefDistance = 110.0
 
 [node name="Azog 1" parent="." instance=ExtResource("3_i8gr5")]
-position = Vector2(829, 246)
+position = Vector2(1229, 387)
+
+[node name="Chong" parent="." instance=ExtResource("4_begid")]
+position = Vector2(727, 589)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+offset = Vector2(470, 0)
+scale = Vector2(2.25, 2.25)
+transform = Transform2D(2.25, 0, 0, 2.25, 470, 0)
+follow_viewport_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_h2pad")
+
+[node name="Murs" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Murs"]
+position = Vector2(1002.25, 110.5)
+shape = SubResource("RectangleShape2D_h2pad")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Murs"]
+position = Vector2(516.5, 538.5)
+shape = SubResource("RectangleShape2D_hob5j")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Murs"]
+position = Vector2(1500, 542)
+shape = SubResource("RectangleShape2D_yv805")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Murs"]
+position = Vector2(784, 1025.5)
+shape = SubResource("RectangleShape2D_r0nop")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Murs"]
+position = Vector2(1339, 1026)
+shape = SubResource("RectangleShape2D_r0nop")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Murs"]
+position = Vector2(1331, 674.5)
+shape = SubResource("RectangleShape2D_4uj07")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Murs"]
+position = Vector2(593.75, 635.5)
+shape = SubResource("RectangleShape2D_5wvds")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Murs"]
+position = Vector2(1071, 1087)
+shape = SubResource("RectangleShape2D_4bmk4")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = -20
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+offset_left = -83.0
+offset_top = -26.0
+offset_right = 2035.0
+offset_bottom = 1216.0
+color = Color(0, 0, 0, 1)

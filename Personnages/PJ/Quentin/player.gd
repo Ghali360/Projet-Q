@@ -2,6 +2,7 @@ class_name player
 extends CharacterBody2D
 
 @export var speed : float = 200
+@export var timerAnim : float = 0.250
 var direction : Vector2 = Vector2.ZERO
 var cardinal_direction : Vector2 = Vector2.DOWN
 var state : String = "idle"
@@ -15,14 +16,50 @@ var gauche : bool = false
 var currentAnim : String = ""
 var LastDirection : String = ""
 var position_history := []
+var Vitesse : float 
+var canMove : bool =true
+var obstacle_direction : Vector2 = Vector2.ZERO
+
+
 signal Marche
 signal idle
+signal Moving
+signal NotMoving
 
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	print("Collision")
+	if  not area.is_in_group("Compagnon"):
+		canMove = false
+		obstacle_direction = (area.global_position - global_position).normalized()
+		print(canMove)
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	print("NotCollision")
+	if not area.is_in_group("Compagnon"):
+		canMove = true
+		obstacle_direction = Vector2.ZERO
+		print(canMove)
 func _process(delta: float) -> void:
-	
-	direction.x = Input.get_action_strength("droite") - Input.get_action_strength("gauche")
-	direction.y = Input.get_action_strength("bas") - Input.get_action_strength("haut")
-	
+	if timerAnim >= 0 :
+		timerAnim -= delta
+	if canMove:
+		direction.x = Input.get_action_strength("droite") - Input.get_action_strength("gauche")
+		direction.y = Input.get_action_strength("bas") - Input.get_action_strength("haut")
+	else :
+		var raw_input = Vector2(
+			Input.get_action_strength("droite") - Input.get_action_strength("gauche"),
+			Input.get_action_strength("bas") - Input.get_action_strength("haut"))
+		
+		if obstacle_direction != Vector2.ZERO:
+			var dot_product = obstacle_direction.dot(raw_input.normalized())
+			
+			# Autoriser seulement les mouvements à plus de 90° de l'obstacle
+			if dot_product > 0.7:
+				# Bloquer complètement le mouvement vers l'obstacle
+				var blocked_component = obstacle_direction * dot_product
+				raw_input -= blocked_component * raw_input.length()
+		direction = raw_input
+			
 	velocity = direction.normalized() * speed
 	cardinal_direction = direction
 	
@@ -51,8 +88,8 @@ func _process(delta: float) -> void:
 	if not Input.is_action_pressed("gauche") :
 		gauche = false
 		
-		
-		
+	
+
 	if not haut and not bas and not droite and not gauche :
 		state = ("idle")
 	
@@ -64,11 +101,16 @@ func _process(delta: float) -> void:
 	
 	
 func _physics_process(delta: float) -> void:
+	
+	var move_direction = direction.normalized() if direction.length() > 0 else Vector2.ZERO
 	move_and_slide()
+	emit_signal("Moving")
 	emit_signal(state)
-	position_history.append(global_position)
-	if position_history.size() > 100:
-		position_history.pop_front()
+	Vitesse = velocity.length()
+	#position_history.append(global_position)
+	if !canMove && get_slide_collision_count() > 0:
+		var collision = get_slide_collision(0)
+		velocity += collision.get_normal() * 5 
 	
 func UpdateAnimation() -> void :
 	animation_player.play (state + "_" + AnimDirection())
@@ -79,20 +121,25 @@ func AnimDirection() -> String:
 	if direction == Vector2.ZERO :
 		return LastDirection
 	if abs(direction.x) > abs(direction.y) :
-		if direction.x > 0 :
+		if direction.x > 0 and timerAnim <= 0  :
 			LastDirection = "droite"
+			timerAnim = 0.15
 			return "droite"
-		else :
+		elif direction.x < 0 and timerAnim <= 0 :
 			LastDirection = "gauche"
+			timerAnim = 0.15
 			return "gauche"
 	else :
-		if direction.y > 0 :
+		if direction.y > 0 and timerAnim <= 0 :
 			LastDirection = "down"
+			timerAnim = 0.15
 			return "down"
-		else :
+		elif direction.y < 0 and timerAnim <= 0 :
 			LastDirection = "up"
+			timerAnim = 0.15
 			return "up"
-			
+	return LastDirection
+
 func _add_trail_point() -> void:
 	var pos = global_position
 #

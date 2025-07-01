@@ -18,7 +18,7 @@ shader_parameter/screen_resolution = Vector2(320, 240)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5b54"]
 size = Vector2(43, 93)
 
-[node name="Node2D" type="CharacterBody2D"]
+[node name="Node2D" type="CharacterBody2D" groups=["Compagnon"]]
 motion_mode = 1
 script = ExtResource("1_6xyiq")
 

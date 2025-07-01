@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://yywv76874k0l"]
+[gd_scene load_steps=9 format=3 uid="uid://yywv76874k0l"]
 
 [ext_resource type="Script" uid="uid://bl1u8m0m010vc" path="res://Personnages/PJ/Quentin/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://dr1kqdtbc1gnq" path="res://Personnages/PJ/Quentin/Sprite Quentin/Quentinquimarche.png" id="1_v0iea"]
@@ -7,32 +7,49 @@
 [ext_resource type="Script" uid="uid://b7evq4bk2pvws" path="res://Overworld/Scripts/trail (2).gd" id="4_vgqql"]
 [ext_resource type="PackedScene" uid="uid://cwlpnhod7o8s0" path="res://Overworld/Interactions/interacting_component.tscn" id="6_x3wgy"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
-size = Vector2(64.25, 98)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_udiow"]
+radius = 30.5
+height = 97.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pc5cd"]
+radius = 14.25
+height = 47.5
 
 [node name="player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_udiow")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(2, -6)
 scale = Vector2(2.23571, 2.23571)
 texture = ExtResource("1_v0iea")
 hframes = 12
 vframes = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 5)
-shape = SubResource("RectangleShape2D_cvnsp")
-
 [node name="AnimationPlayer" parent="." instance=ExtResource("3_fkybt")]
 
 [node name="Trail" parent="." instance=ExtResource("3_vgqql")]
+visible = false
 show_behind_parent = true
 top_level = true
 script = ExtResource("4_vgqql")
 
 [node name="InteractionManager" parent="." instance=ExtResource("6_x3wgy")]
 
-[connection signal="Marche" from="." to="Trail" method="_on_player_marche"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_pc5cd")
+debug_color = Color(0.7, 0.0164062, 0, 0.42)
+
+[connection signal="Moving" from="." to="Trail" method="_on_player_moving"]
+[connection signal="NotMoving" from="." to="Trail" method="_on_player_not_moving"]
 [connection signal="idle" from="." to="Trail" method="_on_player_idle"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
