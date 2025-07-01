@@ -48,8 +48,12 @@ scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_pc5cd")
 debug_color = Color(0.7, 0.0164062, 0, 0.42)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [connection signal="Moving" from="." to="Trail" method="_on_player_moving"]
 [connection signal="NotMoving" from="." to="Trail" method="_on_player_not_moving"]
 [connection signal="idle" from="." to="Trail" method="_on_player_idle"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

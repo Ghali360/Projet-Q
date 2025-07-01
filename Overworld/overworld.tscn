@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0x4fcy186qq5"]
+[gd_scene load_steps=15 format=3 uid="uid://d0x4fcy186qq5"]
 
 [ext_resource type="PackedScene" uid="uid://yywv76874k0l" path="res://Personnages/PJ/Quentin/player.tscn" id="1_6s5ae"]
 [ext_resource type="Script" uid="uid://eoncuy4owbe8" path="res://Overworld/overworld.gd" id="1_h2pad"]
@@ -7,17 +7,25 @@
 [ext_resource type="PackedScene" uid="uid://dn3t3vuy1tjsd" path="res://Personnages/PNJ/Chong.tscn" id="4_begid"]
 [ext_resource type="Texture2D" uid="uid://cquuhv1mrt5bv" path="res://Overworld/Decors/Chambre de quentin.png" id="5_h2pad"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2pad"]
-size = Vector2(1091.5, 235)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2pad"]
+radius = 42.75
+height = 894.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hob5j"]
-size = Vector2(117, 1097)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hob5j"]
+radius = 57.5
+height = 899.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yv805"]
-size = Vector2(112, 1104)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yv805"]
+radius = 57.0
+height = 872.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0nop"]
-size = Vector2(448, 117)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r0nop"]
+radius = 61.0
+height = 510.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4uj07"]
+radius = 53.0
+height = 442.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4uj07"]
 size = Vector2(220, 155)
@@ -60,24 +68,27 @@ texture = ExtResource("5_h2pad")
 [node name="Murs" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Murs"]
-position = Vector2(1002.25, 110.5)
-shape = SubResource("RectangleShape2D_h2pad")
+position = Vector2(1008, 243)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_h2pad")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Murs"]
 position = Vector2(516.5, 538.5)
-shape = SubResource("RectangleShape2D_hob5j")
+shape = SubResource("CapsuleShape2D_hob5j")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Murs"]
 position = Vector2(1500, 542)
-shape = SubResource("RectangleShape2D_yv805")
+shape = SubResource("CapsuleShape2D_yv805")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Murs"]
-position = Vector2(784, 1025.5)
-shape = SubResource("RectangleShape2D_r0nop")
+position = Vector2(749, 1026)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_r0nop")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Murs"]
 position = Vector2(1339, 1026)
-shape = SubResource("RectangleShape2D_r0nop")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4uj07")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="Murs"]
 position = Vector2(1331, 674.5)
@@ -95,8 +106,8 @@ shape = SubResource("RectangleShape2D_4bmk4")
 layer = -20
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
-offset_left = -83.0
-offset_top = -26.0
-offset_right = 2035.0
-offset_bottom = 1216.0
+offset_left = -95.0
+offset_top = -22.0
+offset_right = 2023.0
+offset_bottom = 1220.0
 color = Color(0, 0, 0, 1)

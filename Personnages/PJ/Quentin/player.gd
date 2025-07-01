@@ -26,16 +26,16 @@ signal idle
 signal Moving
 signal NotMoving
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
+func _on_area_2d_body_entered(body: Node2D) -> void:
 	print("Collision")
-	if  not area.is_in_group("Compagnon"):
+	if  not body.is_in_group("Compagnon"):
 		canMove = false
-		obstacle_direction = (area.global_position - global_position).normalized()
+		obstacle_direction = (body.global_position - global_position).normalized()
 		print(canMove)
 
-func _on_area_2d_area_exited(area: Area2D) -> void:
+func _on_area_2d_body_exited(body: Node2D) -> void:
 	print("NotCollision")
-	if not area.is_in_group("Compagnon"):
+	if not body.is_in_group("Compagnon"):
 		canMove = true
 		obstacle_direction = Vector2.ZERO
 		print(canMove)

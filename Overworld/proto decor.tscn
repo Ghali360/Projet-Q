@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://r0a6njy7jnmp"]
+
+[ext_resource type="PackedScene" uid="uid://cqkmtaow2ys0b" path="res://Overworld/Decors/DécorChambre.tscn" id="1_2ih0b"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_2ih0b")]
