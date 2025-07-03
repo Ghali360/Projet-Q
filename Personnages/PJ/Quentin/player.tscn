@@ -39,6 +39,7 @@ vframes = 8
 visible = false
 show_behind_parent = true
 top_level = true
+closed = true
 script = ExtResource("4_vgqql")
 
 [node name="InteractionManager" parent="." instance=ExtResource("6_x3wgy")]

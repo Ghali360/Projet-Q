@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdx4mkf7hb42"]
+
+[ext_resource type="Script" uid="uid://dprf13to6n5uc" path="res://Overworld/Decors/furniture/porte.gd" id="1_5bq8k"]
+[ext_resource type="Texture2D" uid="uid://mvqvjwghynwv" path="res://Overworld/Decors/Sprites/door-icon-10437.png" id="1_clyg6"]
+[ext_resource type="PackedScene" uid="uid://jrg1fwnojhaq" path="res://Overworld/Interactions/interactible.tscn" id="3_5bq8k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nas23"]
+size = Vector2(100, 163)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpm1v"]
+size = Vector2(112, 194)
+
+[node name="Porte" type="StaticBody2D"]
+script = ExtResource("1_5bq8k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1.52588e-05)
+scale = Vector2(0.726563, 0.732306)
+texture = ExtResource("1_clyg6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -9.5)
+shape = SubResource("RectangleShape2D_nas23")
+debug_color = Color(0.7, 0, 0, 0.42)
+
+[node name="Interactible" parent="." instance=ExtResource("3_5bq8k")]
+interact_name = "Ouvrir"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactible"]
+position = Vector2(-3, -3)
+shape = SubResource("RectangleShape2D_qpm1v")

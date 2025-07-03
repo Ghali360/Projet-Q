@@ -1,11 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0x4fcy186qq5"]
+[gd_scene load_steps=16 format=3 uid="uid://d0x4fcy186qq5"]
 
-[ext_resource type="PackedScene" uid="uid://yywv76874k0l" path="res://Personnages/PJ/Quentin/player.tscn" id="1_6s5ae"]
-[ext_resource type="Script" uid="uid://eoncuy4owbe8" path="res://Overworld/overworld.gd" id="1_h2pad"]
-[ext_resource type="PackedScene" uid="uid://p2yws5av6ed5" path="res://Personnages/PJ/Compagnons Test/Compagnon.tscn" id="2_i8gr5"]
-[ext_resource type="PackedScene" uid="uid://d4bfjquahvufe" path="res://Items/Azog.tscn" id="3_i8gr5"]
-[ext_resource type="PackedScene" uid="uid://dn3t3vuy1tjsd" path="res://Personnages/PNJ/Chong.tscn" id="4_begid"]
-[ext_resource type="Texture2D" uid="uid://cquuhv1mrt5bv" path="res://Overworld/Decors/Chambre de quentin.png" id="5_h2pad"]
+[ext_resource type="Script" uid="uid://eoncuy4owbe8" path="res://Overworld/overworld.gd" id="1_r1s1i"]
+[ext_resource type="PackedScene" uid="uid://bdx4mkf7hb42" path="res://Overworld/Decors/furniture/porte.tscn" id="2_awky5"]
+[ext_resource type="PackedScene" uid="uid://yywv76874k0l" path="res://Personnages/PJ/Quentin/player.tscn" id="3_is705"]
+[ext_resource type="PackedScene" uid="uid://p2yws5av6ed5" path="res://Personnages/PJ/Compagnons Test/Compagnon.tscn" id="4_x5smf"]
+[ext_resource type="PackedScene" uid="uid://d4bfjquahvufe" path="res://Items/Azog.tscn" id="5_k57gc"]
+[ext_resource type="PackedScene" uid="uid://dn3t3vuy1tjsd" path="res://Personnages/PNJ/Chong.tscn" id="6_e6hh5"]
+[ext_resource type="Texture2D" uid="uid://cquuhv1mrt5bv" path="res://Overworld/Decors/Chambre de quentin.png" id="7_hv5al"]
+[ext_resource type="PackedScene" uid="uid://boigsnetop16p" path="res://Overworld/fade_screen.tscn" id="8_awky5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2pad"]
 radius = 42.75
@@ -33,37 +35,37 @@ size = Vector2(220, 155)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wvds"]
 size = Vector2(76.5, 409)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bmk4"]
-size = Vector2(165, 20)
+[node name="Overworld_1" type="Node2D"]
+script = ExtResource("1_r1s1i")
 
-[node name="Overworld" type="Node2D"]
-script = ExtResource("1_h2pad")
+[node name="Porte" parent="." instance=ExtResource("2_awky5")]
+position = Vector2(1064, 987)
 
-[node name="player" parent="." instance=ExtResource("1_6s5ae")]
-position = Vector2(1065, 899)
+[node name="player" parent="." instance=ExtResource("3_is705")]
+position = Vector2(977, 472)
 
-[node name="Compagnon 1" parent="." instance=ExtResource("2_i8gr5")]
+[node name="Compagnon 1" parent="." instance=ExtResource("4_x5smf")]
 z_index = -1
-position = Vector2(1044, 882)
+position = Vector2(956, 455)
 RefDistance = 110.0
 
-[node name="Azog 1" parent="." instance=ExtResource("3_i8gr5")]
+[node name="Azog 1" parent="." instance=ExtResource("5_k57gc")]
 position = Vector2(1229, 387)
 
-[node name="Chong" parent="." instance=ExtResource("4_begid")]
+[node name="Chong" parent="." instance=ExtResource("6_e6hh5")]
 position = Vector2(727, 589)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="chambre" type="CanvasLayer" parent="."]
 layer = -10
 offset = Vector2(470, 0)
 scale = Vector2(2.25, 2.25)
 transform = Transform2D(2.25, 0, 0, 2.25, 470, 0)
 follow_viewport_enabled = true
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="chambre"]
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("5_h2pad")
+texture = ExtResource("7_hv5al")
 
 [node name="Murs" type="StaticBody2D" parent="."]
 
@@ -98,16 +100,14 @@ shape = SubResource("RectangleShape2D_4uj07")
 position = Vector2(593.75, 635.5)
 shape = SubResource("RectangleShape2D_5wvds")
 
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="Murs"]
-position = Vector2(1071, 1087)
-shape = SubResource("RectangleShape2D_4bmk4")
+[node name="fade_screen" parent="." instance=ExtResource("8_awky5")]
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="fond noir" type="CanvasLayer" parent="."]
 layer = -20
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
-offset_left = -95.0
-offset_top = -22.0
-offset_right = 2023.0
-offset_bottom = 1220.0
+[node name="ColorRect" type="ColorRect" parent="fond noir"]
+offset_left = -666.0
+offset_top = -635.0
+offset_right = 2396.0
+offset_bottom = 1929.0
 color = Color(0, 0, 0, 1)

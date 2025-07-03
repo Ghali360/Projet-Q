@@ -22,6 +22,7 @@ boot_splash/main_scene="uid://b4ypf8sdtqmel"
 [autoload]
 
 Stats="*res://script/Stats.gd"
+FadeScreen="*res://Overworld/fade_screen.tscn"
 
 [display]
 

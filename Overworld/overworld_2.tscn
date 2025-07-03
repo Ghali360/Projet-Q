@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dh0d4q1yh8tof"]
+
+[ext_resource type="PackedScene" uid="uid://cqkmtaow2ys0b" path="res://Overworld/Decors/DécorChambre.tscn" id="1_v33fp"]
+[ext_resource type="PackedScene" uid="uid://yywv76874k0l" path="res://Personnages/PJ/Quentin/player.tscn" id="2_pu1tl"]
+[ext_resource type="PackedScene" uid="uid://p2yws5av6ed5" path="res://Personnages/PJ/Compagnons Test/Compagnon.tscn" id="3_8xcsh"]
+
+[node name="Overworld_2" type="Node2D"]
+
+[node name="DecorChambre" parent="." instance=ExtResource("1_v33fp")]
+scale = Vector2(5, 5)
+
+[node name="player" parent="." instance=ExtResource("2_pu1tl")]
+position = Vector2(89, 166)
+
+[node name="Compagnon 1" parent="." instance=ExtResource("3_8xcsh")]
+z_index = -1
+position = Vector2(68, 149)
+RefDistance = 110.0
