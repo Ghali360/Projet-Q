@@ -106,8 +106,8 @@ shape = SubResource("RectangleShape2D_5wvds")
 layer = -20
 
 [node name="ColorRect" type="ColorRect" parent="fond noir"]
-offset_left = -666.0
-offset_top = -635.0
-offset_right = 2396.0
-offset_bottom = 1929.0
+offset_left = -563.0
+offset_top = -468.0
+offset_right = 2499.0
+offset_bottom = 2096.0
 color = Color(0, 0, 0, 1)

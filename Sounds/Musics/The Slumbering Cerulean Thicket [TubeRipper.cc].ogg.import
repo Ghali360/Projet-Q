@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://04u0i47eora0"
+path="res://.godot/imported/The Slumbering Cerulean Thicket [TubeRipper.cc].ogg-4e73775ddaea7e6b943a3d9d11810693.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Musics/The Slumbering Cerulean Thicket [TubeRipper.cc].ogg"
+dest_files=["res://.godot/imported/The Slumbering Cerulean Thicket [TubeRipper.cc].ogg-4e73775ddaea7e6b943a3d9d11810693.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

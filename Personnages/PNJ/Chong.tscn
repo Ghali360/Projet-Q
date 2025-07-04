@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn3t3vuy1tjsd"]
+[gd_scene load_steps=12 format=3 uid="uid://dn3t3vuy1tjsd"]
 
 [ext_resource type="Texture2D" uid="uid://b5dub13tj0tyv" path="res://Personnages/PNJ/Sprites/Ching Chong.png" id="1_377yi"]
 [ext_resource type="Script" uid="uid://behwl0ecx5yh4" path="res://Personnages/PNJ/chong.gd" id="1_ophug"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dv37f81mw41vv" path="res://Textbox/Scripts/dialogue_manager.gd" id="4_d4ijf"]
 [ext_resource type="Script" uid="uid://dsc287dxhgn5m" path="res://Textbox/Scripts/textbox_content.gd" id="5_jdwe6"]
 [ext_resource type="FontFile" uid="uid://d2k41recarko6" path="res://fonts/JANSINA.ttf" id="6_5r2ee"]
+[ext_resource type="AudioStream" uid="uid://dc4x11mf6c7s7" path="res://Sounds/chineseSound.ogg" id="7_jdwe6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_377yi"]
 radius = 35.0
@@ -20,7 +21,7 @@ size = Vector2(72, 57)
 [sub_resource type="Resource" id="Resource_7atv3"]
 script = ExtResource("5_jdwe6")
 texture = ExtResource("1_377yi")
-texte = "Bondour ! Prends mon riz !"
+texte = "Yo phone linging"
 "vitesse_défilement_texte" = 150.0
 skip_options = 0
 font_custom = true
@@ -55,3 +56,6 @@ shape = SubResource("RectangleShape2D_722kj")
 script = ExtResource("4_d4ijf")
 lignes_de_dialogue = Array[ExtResource("5_jdwe6")]([SubResource("Resource_7atv3")])
 metadata/_custom_type_script = "uid://dv37f81mw41vv"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_jdwe6")

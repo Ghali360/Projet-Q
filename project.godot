@@ -23,6 +23,7 @@ boot_splash/main_scene="uid://b4ypf8sdtqmel"
 
 Stats="*res://script/Stats.gd"
 FadeScreen="*res://Overworld/fade_screen.tscn"
+GlobalAudioStreamPlayer="*res://Sounds/audio_stream_player.tscn"
 
 [display]
 
