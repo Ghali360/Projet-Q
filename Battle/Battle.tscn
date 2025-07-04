@@ -140,7 +140,6 @@ visible = false
 position = Vector2(0, 610)
 
 [node name="activePlayer" parent="." instance=ExtResource("4_dme4p")]
-visible = false
 position = Vector2(0, 1088)
 
 [node name="FuiteButton" type="Button" parent="."]

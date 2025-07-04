@@ -1,0 +1,108 @@
+[gd_scene load_steps=12 format=3 uid="uid://dpfoxw0yabb1k"]
+
+[ext_resource type="Script" uid="uid://48ovgwjx2b58" path="res://Battle/EquipierContainer/equipier_container.gd" id="1_0rmpu"]
+[ext_resource type="Texture2D" uid="uid://bj43l2jug1t66" path="res://Personnages/PNJ/Sprites/azog.png" id="2_0rmpu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8bobn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxwal"]
+bg_color = Color(0.294118, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukenx"]
+bg_color = Color(0.329412, 0.988235, 0.282353, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_0rmpu"]
+font_names = PackedStringArray("Comic Sans MS")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_8bobn"]
+font = SubResource("SystemFont_0rmpu")
+font_size = 18
+font_color = Color(0, 0.643698, 3.85046e-07, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ianc7"]
+bg_color = Color(0.294118, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_co1uq"]
+bg_color = Color(0.261803, 0.000428171, 0.710705, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_w8wxn"]
+font_names = PackedStringArray("Comic Sans MS")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_i6h56"]
+font = SubResource("SystemFont_w8wxn")
+font_size = 18
+font_color = Color(0.301961, 0.611765, 0.815686, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Equipier" type="Node2D"]
+script = ExtResource("1_0rmpu")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+clip_children = 1
+position = Vector2(-99.75, 99.75)
+scale = Vector2(200.5, 200.5)
+mesh = SubResource("BoxMesh_8bobn")
+
+[node name="Sprite2D" type="Sprite2D" parent="MeshInstance2D"]
+scale = Vector2(0.00779302, 0.00779302)
+texture = ExtResource("2_0rmpu")
+
+[node name="pvBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 30)
+offset_left = -200.0
+offset_top = 205.0
+offset_bottom = 235.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vxwal")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ukenx")
+step = 1.0
+value = 50.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="pvBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="pvBar/MarginContainer"]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_8bobn")
+vertical_alignment = 1
+
+[node name="manaBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 30)
+offset_left = -200.0
+offset_top = 240.0
+offset_bottom = 270.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ianc7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_co1uq")
+step = 1.0
+value = 50.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="manaBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="manaBar/MarginContainer"]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_i6h56")

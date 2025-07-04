@@ -1,0 +1,246 @@
+[gd_scene load_steps=28 format=3 uid="uid://b4ypf8sdtqmel"]
+
+[ext_resource type="Script" uid="uid://wpar88hq1oqg" path="res://Battle/battle.gd" id="1_3ym65"]
+[ext_resource type="Texture2D" uid="uid://qxtiyix6nsyl" path="res://Battle/Décor/Gare_d'Orsay_le_31_juillet_2014.jpg" id="4_tsc8h"]
+[ext_resource type="PackedScene" uid="uid://cdmw5g7s1meik" path="res://Battle/EnnemiContainer/enemy_container.tscn" id="5_dh7om"]
+[ext_resource type="StyleBox" uid="uid://b7nd2uyq27ohf" path="res://couleurs/PV_bg.tres" id="6_fuh3u"]
+[ext_resource type="StyleBox" uid="uid://n27i62faj0ys" path="res://couleurs/PV_fill.tres" id="7_2lq7y"]
+[ext_resource type="Texture2D" uid="uid://gikvay3y6o2j" path="res://Personnages/PNJ/Sprites/monsieur_cool.png" id="8_706sf"]
+[ext_resource type="Theme" uid="uid://dou7dhmluhch6" path="res://Battle/bouton_attaquer.tres" id="9_6d22a"]
+[ext_resource type="Script" uid="uid://dv37f81mw41vv" path="res://Textbox/Scripts/dialogue_manager.gd" id="10_y2316"]
+[ext_resource type="Script" uid="uid://dsc287dxhgn5m" path="res://Textbox/Scripts/textbox_content.gd" id="11_eqnc2"]
+[ext_resource type="Texture2D" uid="uid://cmo0ep0i50psn" path="res://Personnages/PNJ/Sprites/Macron.png" id="12_fkjwm"]
+
+[sub_resource type="Resource" id="Resource_7i387"]
+script = ExtResource("11_eqnc2")
+texte = "Quentin attaque !"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_nttxn"]
+script = ExtResource("11_eqnc2")
+texte = "eeeeeeeee"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_u5lwd"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("12_fkjwm")
+texte = "Bonjour je suis Macron"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_dfi4p"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("8_706sf")
+texte = "Bonjour je suis monsieur cool"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_262jj"]
+script = ExtResource("11_eqnc2")
+texte = "Un [b]MACRON[/b] sauvage apparait !  
+oh non"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="SystemFont" id="SystemFont_qxnh6"]
+font_names = PackedStringArray("Impact")
+
+[sub_resource type="Resource" id="Resource_tiokb"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("12_fkjwm")
+texte = "haha c moi [color=red]macron[/color] je vais aneantir le monde"
+"vitesse_défilement_texte" = 54.0
+skip_options = 0
+font_custom = true
+font = SubResource("SystemFont_qxnh6")
+font_color = Color(1, 0, 1, 1)
+font_size = 40
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_0qgg5"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("8_706sf")
+texte = "non arete ces pa bien"
+"vitesse_défilement_texte" = 200.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_n5y6x"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("12_fkjwm")
+texte = "oh nn c [font_size=60]vrai[/font_size]"
+"vitesse_défilement_texte" = 200.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_jr0ro"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("12_fkjwm")
+texte = "ok jarete alors"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_6xsll"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("8_706sf")
+texte = "youpi"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_imcj7"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("12_fkjwm")
+texte = "youpi"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_qxnh6"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("12_fkjwm")
+texte = "en fait g menti"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="SystemFont" id="SystemFont_l0uqe"]
+
+[sub_resource type="Resource" id="Resource_xmk5i"]
+script = ExtResource("11_eqnc2")
+texture = ExtResource("8_706sf")
+texte = "maudis-sois tu   [font_size=60][font=\"res://resources/fonts/comic_sans_ms.tres\"]marcon[/font][/font_size]   j'aurai ta peau"
+"vitesse_défilement_texte" = 100.0
+skip_options = 0
+font_custom = true
+font = SubResource("SystemFont_l0uqe")
+font_color = Color(1, 1, 1, 1)
+font_size = 30
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="Resource" id="Resource_l0uqe"]
+script = ExtResource("11_eqnc2")
+texte = "FIGHT"
+"vitesse_défilement_texte" = 20.0
+skip_options = 0
+font_custom = false
+metadata/_custom_type_script = "uid://dsc287dxhgn5m"
+
+[sub_resource type="SystemFont" id="SystemFont_262jj"]
+font_names = PackedStringArray("Comic Sans MS")
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -4.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3ym65")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_tsc8h")
+expand_mode = 1
+
+[node name="EnemyContainer" parent="." instance=ExtResource("5_dh7om")]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 194.0
+offset_right = 420.0
+offset_bottom = 629.0
+
+[node name="QuentinContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 747.0
+offset_top = 396.0
+offset_right = 897.0
+offset_bottom = 606.0
+
+[node name="ProgressBar" type="ProgressBar" parent="QuentinContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = ExtResource("6_fuh3u")
+theme_override_styles/fill = ExtResource("7_2lq7y")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="QuentinContainer/ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "75/75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quentin" type="TextureRect" parent="QuentinContainer"]
+layout_mode = 2
+texture = ExtResource("8_706sf")
+expand_mode = 5
+
+[node name="AttaqueButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 491.0
+offset_top = 529.0
+offset_right = -1216.0
+offset_bottom = -488.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_6d22a")
+text = "Attaquer"
+
+[node name="AttaqueDialogue" type="Node" parent="AttaqueButton"]
+script = ExtResource("10_y2316")
+lignes_de_dialogue = Array[ExtResource("11_eqnc2")]([SubResource("Resource_7i387"), SubResource("Resource_nttxn")])
+metadata/_custom_type_script = "uid://dv37f81mw41vv"
+
+[node name="DialogueExemple" type="Node" parent="."]
+script = ExtResource("10_y2316")
+lignes_de_dialogue = Array[ExtResource("11_eqnc2")]([SubResource("Resource_u5lwd"), SubResource("Resource_dfi4p")])
+metadata/_custom_type_script = "uid://dv37f81mw41vv"
+
+[node name="IntroDialogue" type="Node" parent="."]
+script = ExtResource("10_y2316")
+lignes_de_dialogue = Array[ExtResource("11_eqnc2")]([SubResource("Resource_262jj"), SubResource("Resource_tiokb"), SubResource("Resource_0qgg5"), SubResource("Resource_n5y6x"), SubResource("Resource_jr0ro"), SubResource("Resource_6xsll"), SubResource("Resource_imcj7"), SubResource("Resource_qxnh6"), SubResource("Resource_xmk5i"), SubResource("Resource_l0uqe")])
+font = SubResource("SystemFont_262jj")
+font_size = 40
+metadata/_custom_type_script = "uid://dv37f81mw41vv"
+
+[connection signal="pressed" from="AttaqueButton" to="." method="_on_attaque_button_pressed"]
