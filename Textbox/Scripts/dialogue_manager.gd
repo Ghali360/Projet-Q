@@ -5,7 +5,7 @@ class_name DialogueManager
 signal dialogue_finished 	## Signal émis lorsque toutes les boites de dialogues ont été affichées.
 signal dialogue_stopped 	## Signal émis lorsque la boite de dialogue s'est fermée.
 
-@onready var textbox_scene = preload("res://Scenes/Textbox.tscn")
+@onready var textbox_scene : Resource = preload("res://Textbox/Textbox.tscn")
 var textbox : Node
 
 ## L'indice de la prochaine boite de dialogue à afficher.

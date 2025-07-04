@@ -1,40 +1,209 @@
 extends Control
 
-@export var perso : Personnage
-@export var ennemi : Resource
+@export var equipe : Array[Personnage]
+@export var ennemis : Array[Ennemi]
 
-@export var pv : int 
 
-@onready var intro_dialogue = $IntroDialogue
+# Les dialogues 
+@onready var intro_dialogue : DialogueManager = $Dialogues/intro
+@onready var battle_dialogue : DialogueManager = $Dialogues/battle
+
+
+@onready var equipiers_container = $Equipiers
+@onready var ennemis_container = $Ennemis
+
+# Les boutons du HUD d'action
+@onready var attaque_button : Button = $AttaqueButton
+@onready var competence_button : Button = $"CompétencesButton"
+@onready var items_button : Button = $ItemsButton
+@onready var fuite_button : Button = $FuiteButton
+
+
+## Les positions des ennemis à l'écran.
+const ACTIVE_PLAYER_POS : Vector2 = Vector2(0,1088) 
+const FIRST_EQUIPIER_POS : Vector2 = Vector2(-10,10)
+const ENNEMI_POS : Vector2 = Vector2(800, 170)
+
+signal game_turn       ## signal envoyé quand la main est donnée à l'ordi.
+signal player_turn     ## signal envoyé quand la main est donnée au joueur.
+
+## L'état du combat en cours. Soit c'est au joueur de jouer, soit c'est à l'ordi.
+enum battle_state {
+	GAME_TURN = 0, ## Etat quand le joueur n'a pas d'actions à faire. En gros, c'est quand y'a des dialogues, quoi.
+	PLAYER_TURN = 1, ## Etat quand c'est au joueur de choisir ses actions.
+}
+var state : battle_state = battle_state.GAME_TURN
+
+
+## Le joueur à qui c'est le tour de jouer. C'est celui situé à gauche de l'écran de combat. 
+var active_player : Personnage
+var active_player_node : ActivePlayer
+@onready var active_player_scene : Resource = preload("res://Battle/ActivePlayer/active_player.tscn")
+
+
+## Les equipiers, qui attendent leur tout. C'est ceux situé à droite de l'écran de combats.
+var equipiers_nodes : Array[EquipierContainer]
+@onready var equipier_scene : Resource = preload("res://Battle/EquipierContainer/Equipier_container.tscn")
+
+
+## Les ennemis, à qui on va casser la gueule. Ils sont vraiment pas gentil dis donc.
+@onready var ennemi_scene : Resource = preload("res://Battle/EnnemiContainer/enemy_container.tscn")
+var ennemis_nodes : Array[EnnemiContainer]
+
 
 func _ready() -> void:
+	active_player = equipe[0]
+	
+	# Initialisation du HUD
+	print("loading equipe")
+	_load_player_actif()
+	_load_equipiers()
+	
+	print("loading ennemis")
+	_load_ennemis()
 	
 	
-	set_pv($QuentinContainer/ProgressBar, Stats.pv_max, Stats.current_pv)
-	set_pv($EnemyContainer/ProgressBar, ennemi.pv, ennemi.pv)
-	$EnemyContainer/Enemy.texture = ennemi.texture
+	# Début du FIGHT YAAAAAAAH
+	game_turn.emit()
+	intro_dialogue.lignes_de_dialogue[0].texte = "Un " + ennemis[0].name.to_upper() + " sauvage apparait !"
 	
-	$AttaqueButton.hide()
+	intro_dialogue.start_dialogue()
+	await intro_dialogue.dialogue_finished
 	
-	intro_dialogue.start_dialogue(3)
-	await intro_dialogue.dialogue_stopped
-	intro_dialogue.continue_dialogue(3)
-	intro_dialogue.finish_dialogue()
-	
-	
-	$AttaqueButton.show()
+	player_turn.emit()
 
 
 
-func set_pv(progressBar : ProgressBar, pv_max, current_pv):
-	progressBar.max_value = pv_max
-	progressBar.value = current_pv
-	progressBar.get_node("Label").text = "%d/%d" % [current_pv, pv_max]
+""" =========== Fonctions pour initialiser le HUD =========== """
+
+## Charge les caractéristiques du joueur actif dans la scène de combat. (initialise les barres de pv, les sprites etc.) 
+func _load_player_actif():
+	# 1. on load le joueur actif (le 1er dans la liste)
+	active_player = equipe[0]
+	
+	active_player_node = active_player_scene.instantiate()
+	get_tree().root.add_child.call_deferred(active_player_node)
+	await active_player_node.ready
+	
+	active_player_node.load_personnage(active_player)
+	active_player_node.position = ACTIVE_PLAYER_POS
+	
+	active_player_node.show()
+
+## Charge les caractéristiques des équipiers dans la scène de combat (les place dans la scènes, affiche leur sprite et leur pc, etc.)
+func _load_equipiers():
+	# 2. On load les équipiers restants
+	equipiers_nodes = []
+	for i in range(1, len(equipe)):
+		# Création de la node
+		var e : EquipierContainer = equipier_scene.instantiate()
+		equipiers_container.add_child.call_deferred(e)
+		await e.ready
+		
+		# On setup la node comme il faut
+		e.load_equipier(equipe[i])
+		e.position = FIRST_EQUIPIER_POS + Vector2(0, 350*(i-1)) #Tous les equipiers sont a 300 pixels de distance
+		
+		# On ajoute la node dans la liste...
+		equipiers_nodes.push_back(e)
+		
+		# ...et on l'affiche !
+		e.show()
+
+## Charge les caractéristiques des ennemis dans la scène de combat. (les place dans la scène, affiche leur pv, etc.) 
+func _load_ennemis():
+	
+	# Reset des ennemis (au cas où)
+	ennemis_nodes = []
+	
+	# On commence par gérer 1 seul ennemi à la fois
+	var e : EnnemiContainer = ennemi_scene.instantiate()
+	ennemis_container.add_child.call_deferred(e)
+	await e.ready
+	
+	e.load_ennemi(ennemis[0])
+	e.position = ENNEMI_POS
+	
+	ennemis_nodes.push_back(e)
+	
+	e.show()
+
+""" ======================================================== """
+
+## Affiche le HUD des actions que peut faire le joueur. 
+func _show_action_buttons():
+	attaque_button.show()
+	competence_button.show()
+	items_button.show()
+	fuite_button.show()
+
+
+## Cache le HUD des actions que peut faire le joueur.
+func _hide_action_buttons():
+	attaque_button.hide()
+	competence_button.hide()
+	items_button.hide()
+	fuite_button.hide()
+
+
+func _on_game_turn() -> void:
+	state = battle_state.GAME_TURN
+	_hide_action_buttons()
+
+func _on_player_turn() -> void:
+	state = battle_state.PLAYER_TURN
+	_show_action_buttons()
 
 
 func _on_attaque_button_pressed() -> void:
-	$AttaqueButton.hide()
-	$AttaqueButton/AttaqueDialogue.start_dialogue()
+	attaquer(ennemis_nodes[0])
 
-	await $AttaqueButton/AttaqueDialogue.dialogue_stopped
-	$AttaqueButton.show()
+
+
+""" =============== Les actions de combats=============== """
+
+## Le joueur actif attaque l'ennemi.
+func attaquer(ennemi : EnnemiContainer):
+	# Le joueur a fini de jouer, c'est au tour du jeu de prendre le relais
+	game_turn.emit()
+	
+	var pv_ennemi = ennemi.pv_bar.value
+	var pv_player = active_player.pv
+	var atk_ennemi = ennemi.stats.damage
+	var atk_player = active_player.arme.attaque
+
+	battle_dialogue.lignes_de_dialogue[0].texte = active_player.nom + " attaque !"
+	battle_dialogue.lignes_de_dialogue[1].texte = ennemi.stats.name + " prend " + str(atk_player) + " dégats !"
+	battle_dialogue.lignes_de_dialogue[2].texte = ennemi.stats.name + " attaque !"
+	battle_dialogue.lignes_de_dialogue[3].texte = active_player.nom + " prend " + str(atk_ennemi) + " dégats !"
+	
+	battle_dialogue.start_dialogue(2)
+	await battle_dialogue.dialogue_stopped
+	
+	await get_tree().create_timer(0.1).timeout
+	ennemi.set_pv(pv_ennemi - atk_player)
+	
+	print("on continue le dialogue")
+	battle_dialogue.continue_dialogue(2)
+	await battle_dialogue.dialogue_finished
+	
+	active_player.pv -= atk_ennemi
+	active_player_node.set_pv(pv_player - atk_ennemi)
+	
+	#Fin du tour, c'est au nouveau joueur de jouer
+	player_turn.emit()
+
+
+
+## Lance une compétence sur un ou plusieurs ennemis.
+func competence(comp : Competence, ennemis : Array[Ennemi]):
+	pass
+	#TODO
+
+## Utilise un item sur un ou tous les personnages.
+func use_item(item, personnage : Personnage):
+	pass
+	#TODO
+
+
+""" ===================================================== """
