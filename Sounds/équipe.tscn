@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c38boisoctjcn"]
+
+[ext_resource type="Script" uid="uid://cy7x84ybmrx8x" path="res://Personnages/PJ/équipe.gd" id="1_3cyum"]
+[ext_resource type="PackedScene" uid="uid://yywv76874k0l" path="res://Personnages/PJ/Quentin/player.tscn" id="1_f36ax"]
+[ext_resource type="PackedScene" uid="uid://p2yws5av6ed5" path="res://Personnages/PJ/Compagnons Test/Compagnon1.tscn" id="2_3cyum"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_3cyum")
+
+[node name="player" parent="." instance=ExtResource("1_f36ax")]
+
+[node name="Node2D" parent="." instance=ExtResource("2_3cyum")]
+speed = 200
+timerAnim = 0.25
+RefDistance = 0.0

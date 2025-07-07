@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Compagnon
+class_name CompagnonSecondaire
 
 const NbrPointMax : int = 7
 
@@ -7,7 +7,7 @@ const NbrPointMax : int = 7
 @onready var root = get_tree().get_current_scene()
 @export var speed := 200
 @export var timerAnim : float = 0.250
-var player: CharacterBody2D
+var FriendBoss: CharacterBody2D
 var Friend: CharacterBody2D
 var target_index := 0
 var target_pos := Vector2.ZERO
@@ -21,7 +21,7 @@ var direction := "down"
 var last_direction := "null"
 var state : String = "idle"
 var  HasFriend : bool 
-
+var hasFriendBoss : bool = false
 
 signal Moving
 signal NotMoving
@@ -31,12 +31,27 @@ func _ready() -> void:
 	call_deferred("_Check_Friend")
 
 func AssingPlayer():
-	player = root.find_child("player")
-	player_trail = player.get_child(3)
+	var friendNBR = name.to_int() - 1
+	FriendBoss = root.find_child("Compagnon "+str(friendNBR))
+	print(FriendBoss)
+	if FriendBoss == null:
+		print("noBoss")
+	else : 
+		hasFriendBoss = true
+		print("Boss")
+	player_trail = FriendBoss.get_child(4)
 	if player_trail == null :
 		print("NoTRAIL")
 	else :
 		print("Trail")
+
+func _Check_Friend():
+	var friendNBR = name.to_int() + 1
+	Friend = root.find_child("Compagnon "+str(friendNBR))
+	if Friend == null :
+		HasFriend = false
+	else :
+		HasFriend = true
 
 func _process(delta: float) -> void:
 	if timerAnim >= 0 :
@@ -44,30 +59,31 @@ func _process(delta: float) -> void:
 	_get_animation_direction(velocity)
 
 func _physics_process(delta: float) -> void:
-	if player_trail != null:
-		var distance = global_position.distance_to(player.global_position)
-		if player_trail.points.size() >= NbrPointMax:
-			if HasFriend:
-				emit_signal("Moving")
-			var points : PackedVector2Array = player_trail.points
-			var target_pos : Vector2 = points[target_index]
-			var dir : Vector2 = (target_pos - global_position)
-			if dir.length() < 4.0:
-				player_trail.remove_point(target_index)
-			else:
-				velocity = dir.normalized() * speed
-			move_and_slide()
-			state = ("Marche")
-			last_direction = direction
-			var anim_name = "Marche_" + direction
-			if animation_player.current_animation != anim_name:
-				animation_player.play(anim_name)
-			
-		else :
-			emit_signal("NotMoving")
-			state = ("idle")
-			animation_player.stop()
-			animation_player.play("idle_" + direction)
+	if hasFriendBoss:
+		var player_global_position = FriendBoss.global_position
+		if player_trail != null:
+			var distance = global_position.distance_to(player_global_position)
+			if player_trail.points.size() >= NbrPointMax:
+				if HasFriend:
+					emit_signal("Moving")
+				var points : PackedVector2Array = player_trail.points
+				var target_pos : Vector2 = points[target_index]
+				var dir : Vector2 = (target_pos - global_position)
+				if dir.length() < 4.0:
+					player_trail.remove_point(target_index)
+				else:
+					velocity = dir.normalized() * speed
+				move_and_slide()
+				state = ("Marche")
+				last_direction = direction
+				var anim_name = "Marche_" + direction
+				if animation_player.current_animation != anim_name:
+					animation_player.play(anim_name)
+			else :
+				emit_signal("NotMoving")
+				state = ("idle")
+				animation_player.stop()
+				animation_player.play("idle_" + direction)
 
 func _get_animation_direction(vel: Vector2) -> String:
 	if vel == Vector2.ZERO:
@@ -87,13 +103,3 @@ func _get_animation_direction(vel: Vector2) -> String:
 			direction = "up"
 			timerAnim = 0.15
 	return direction
-
-func _Check_Friend():
-	var friendNBR = name.to_int() + 1
-	Friend = root.find_child("Compagnon "+str(friendNBR))
-	if Friend == null :
-		HasFriend = false
-		$Label.text = str("Nofriend")
-	else :
-		HasFriend = true
-		$Label.text = str("friend")

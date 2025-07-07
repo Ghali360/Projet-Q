@@ -16,6 +16,7 @@ func _on_interact():
 		await _next_level()
 		
 func _next_level():
+	FxStreamPlayer._play_doorFX()
 	var current_scene_file = get_tree().current_scene.scene_file_path
 	var next_level_nbr = current_scene_file.to_int() + 1
 	var next_level_path = File_Begin+str(next_level_nbr)+".tscn"

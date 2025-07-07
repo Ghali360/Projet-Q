@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://ir3rt7b5pfor"]
+
+[ext_resource type="Script" uid="uid://i2fanfmb4jgr" path="res://Personnages/PJ/Compagnons Test/compagnon_2.gd" id="1_4kx8j"]
+[ext_resource type="Shader" uid="uid://ccq2822qlifq4" path="res://Shaders/CRT.gdshader" id="1_gpccl"]
+[ext_resource type="Texture2D" uid="uid://dr1kqdtbc1gnq" path="res://Personnages/PJ/Quentin/Sprite Quentin/Quentinquimarche.png" id="2_4kx8j"]
+[ext_resource type="PackedScene" uid="uid://csp3rqwxqns2n" path="res://Personnages/PJ/Compagnons Test/debug.tscn" id="3_6xvu1"]
+[ext_resource type="PackedScene" uid="uid://crbup7771tyg4" path="res://Personnages/PJ/Compagnons Test/animation_marche.tscn" id="4_6l8q7"]
+[ext_resource type="PackedScene" uid="uid://bc7xa6h3agonn" path="res://Overworld/trail.tscn" id="5_blou0"]
+[ext_resource type="Script" uid="uid://cl1cvppkox4yw" path="res://Overworld/trailC2.gd" id="7_4kx8j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gdbm1"]
+resource_local_to_scene = true
+shader = ExtResource("1_gpccl")
+shader_parameter/scanline_strength = 0.431
+shader_parameter/distortion_strength = 0.0
+shader_parameter/chroma_shift_strength = 0.426
+shader_parameter/saturation_boost = 2.208
+shader_parameter/screen_resolution = Vector2(320, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6cilu"]
+size = Vector2(43, 93)
+
+[node name="Compagnon 2" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_4kx8j")
+speed = 250
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_gdbm1")
+position = Vector2(3, -6)
+scale = Vector2(2.236, 2.236)
+texture = ExtResource("2_4kx8j")
+hframes = 12
+vframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6cilu")
+disabled = true
+
+[node name="Label" parent="." instance=ExtResource("3_6xvu1")]
+offset_left = -71.0
+offset_top = -72.0
+offset_right = 134.0
+offset_bottom = -46.0
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" parent="." instance=ExtResource("4_6l8q7")]
+
+[node name="Trail" parent="." instance=ExtResource("5_blou0")]
+show_behind_parent = true
+top_level = true
+script = ExtResource("7_4kx8j")
+
+[connection signal="Moving" from="." to="Trail" method="_on_compagnon_2_moving"]
+[connection signal="NotMoving" from="." to="Trail" method="_on_compagnon_2_not_moving"]

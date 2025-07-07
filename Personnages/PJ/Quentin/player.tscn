@@ -18,6 +18,7 @@ height = 47.5
 [node name="player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_cvnsp")
+speed = 250.0
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -36,10 +37,9 @@ vframes = 8
 [node name="AnimationPlayer" parent="." instance=ExtResource("3_fkybt")]
 
 [node name="Trail" parent="." instance=ExtResource("3_vgqql")]
-visible = false
 show_behind_parent = true
 top_level = true
-closed = true
+width = 5.0
 script = ExtResource("4_vgqql")
 
 [node name="InteractionManager" parent="." instance=ExtResource("6_x3wgy")]

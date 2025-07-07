@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0x4fcy186qq5"]
+[gd_scene load_steps=18 format=3 uid="uid://d0x4fcy186qq5"]
 
 [ext_resource type="Script" uid="uid://eoncuy4owbe8" path="res://Overworld/overworld.gd" id="1_r1s1i"]
 [ext_resource type="PackedScene" uid="uid://bdx4mkf7hb42" path="res://Overworld/Decors/furniture/porte.tscn" id="2_awky5"]
 [ext_resource type="PackedScene" uid="uid://yywv76874k0l" path="res://Personnages/PJ/Quentin/player.tscn" id="3_is705"]
-[ext_resource type="PackedScene" uid="uid://p2yws5av6ed5" path="res://Personnages/PJ/Compagnons Test/Compagnon.tscn" id="4_x5smf"]
+[ext_resource type="PackedScene" uid="uid://p2yws5av6ed5" path="res://Personnages/PJ/Compagnons Test/Compagnon1.tscn" id="4_x5smf"]
 [ext_resource type="PackedScene" uid="uid://d4bfjquahvufe" path="res://Items/Azog.tscn" id="5_k57gc"]
 [ext_resource type="PackedScene" uid="uid://dn3t3vuy1tjsd" path="res://Personnages/PNJ/Chong.tscn" id="6_e6hh5"]
+[ext_resource type="PackedScene" uid="uid://dwyg7dbpgu25d" path="res://Personnages/PJ/Compagnons Test/compagnon 3.tscn" id="6_x5smf"]
 [ext_resource type="Texture2D" uid="uid://cquuhv1mrt5bv" path="res://Overworld/Decors/Chambre de quentin.png" id="7_hv5al"]
 [ext_resource type="PackedScene" uid="uid://boigsnetop16p" path="res://Overworld/fade_screen.tscn" id="8_awky5"]
+[ext_resource type="PackedScene" uid="uid://ir3rt7b5pfor" path="res://Personnages/PJ/Compagnons Test/compagnon_2.tscn" id="9_is705"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2pad"]
 radius = 42.75
@@ -48,6 +50,12 @@ position = Vector2(977, 472)
 z_index = -1
 position = Vector2(956, 455)
 RefDistance = 110.0
+
+[node name="Compagnon 2" parent="." instance=ExtResource("9_is705")]
+position = Vector2(850, 466)
+
+[node name="Compagnon 3" parent="." instance=ExtResource("6_x5smf")]
+position = Vector2(853, 575)
 
 [node name="Azog 1" parent="." instance=ExtResource("5_k57gc")]
 position = Vector2(1229, 387)
@@ -106,8 +114,8 @@ shape = SubResource("RectangleShape2D_5wvds")
 layer = -20
 
 [node name="ColorRect" type="ColorRect" parent="fond noir"]
-offset_left = -563.0
-offset_top = -468.0
-offset_right = 2499.0
-offset_bottom = 2096.0
+offset_left = -545.0
+offset_top = -606.0
+offset_right = 2517.0
+offset_bottom = 1958.0
 color = Color(0, 0, 0, 1)
