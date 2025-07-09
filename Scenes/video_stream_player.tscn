@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhyluhyvmr6ei"]
+
+[ext_resource type="VideoStream" uid="uid://bpow16xpex4tr" path="res://videos/coup-epee.ogv" id="1_s67f4"]
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer"]
+anchors_preset = -1
+offset_left = 163.0
+offset_top = 65.0
+offset_right = 4003.0
+offset_bottom = 2225.0
+stream = ExtResource("1_s67f4")
+autoplay = true
+
+[node name="Camera2D" type="Camera2D" parent="."]

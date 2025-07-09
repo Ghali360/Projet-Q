@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://k0gki7kdiads"]
+
+[ext_resource type="Shader" uid="uid://ccq2822qlifq4" path="res://Shaders/CRT.gdshader" id="1_ducvw"]
+[ext_resource type="VideoStream" uid="uid://bpow16xpex4tr" path="res://videos/coup-epee.ogv" id="1_kc6ei"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b21sn"]
+shader = ExtResource("1_ducvw")
+shader_parameter/scanline_strength = 0.3
+shader_parameter/distortion_strength = 0.05
+shader_parameter/chroma_shift_strength = 0.02
+shader_parameter/saturation_boost = 1.5
+shader_parameter/screen_resolution = Vector2(320, 240)
+
+[node name="video" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(0.5, 0.5)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Node2D"]
+material = SubResource("ShaderMaterial_b21sn")
+offset_left = -1914.0
+offset_top = -1074.0
+offset_right = 1926.0
+offset_bottom = 1086.0
+stream = ExtResource("1_kc6ei")
+autoplay = true
