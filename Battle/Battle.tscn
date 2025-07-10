@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b1qu42x73ll1"]
+[gd_scene load_steps=27 format=3 uid="uid://b1qu42x73ll1"]
 
 [ext_resource type="Script" uid="uid://wpar88hq1oqg" path="res://Battle/battle.gd" id="1_arymd"]
 [ext_resource type="PackedScene" uid="uid://cdmw5g7s1meik" path="res://Battle/EnnemiContainer/enemy_container.tscn" id="2_aumtf"]
@@ -6,23 +6,43 @@
 [ext_resource type="Resource" uid="uid://ceeb3h6tbh3vh" path="res://Personnages/PJ/Quentin/Quentin.tres" id="3_3ym65"]
 [ext_resource type="PackedScene" uid="uid://dpfoxw0yabb1k" path="res://Battle/EquipierContainer/Equipier_container.tscn" id="3_ut43r"]
 [ext_resource type="Texture2D" uid="uid://bj43l2jug1t66" path="res://Personnages/PNJ/Sprites/azog.png" id="4_3ym65"]
+[ext_resource type="Script" uid="uid://c4fhxf8h6riym" path="res://Compétences/competence.gd" id="4_7fbq8"]
 [ext_resource type="PackedScene" uid="uid://dbddub8d2gkc" path="res://Battle/ActivePlayer/active_player.tscn" id="4_dme4p"]
 [ext_resource type="Script" uid="uid://b87kb0m40o26u" path="res://ennemis/ennemi.gd" id="4_ticc8"]
 [ext_resource type="Texture2D" uid="uid://qxtiyix6nsyl" path="res://Battle/Décor/Gare_d'Orsay_le_31_juillet_2014.jpg" id="4_tsc8h"]
 [ext_resource type="Resource" uid="uid://bdsg2s5bqre5l" path="res://ennemis/macron.tres" id="5_7fbq8"]
+[ext_resource type="Script" uid="uid://bx4idiyd3kq1x" path="res://Armes/arme.gd" id="5_tsc8h"]
 [ext_resource type="Script" uid="uid://dv37f81mw41vv" path="res://Textbox/Scripts/dialogue_manager.gd" id="6_k8abi"]
+[ext_resource type="Texture2D" uid="uid://gikvay3y6o2j" path="res://Personnages/PNJ/Sprites/monsieur_cool.png" id="6_tsc8h"]
 [ext_resource type="Script" uid="uid://dsc287dxhgn5m" path="res://Textbox/Scripts/textbox_content.gd" id="7_o6f3u"]
+
+[sub_resource type="Resource" id="Resource_2lq7y"]
+script = ExtResource("5_tsc8h")
+nom = "zizi arme 1"
+niveau = 0
+attaque = 20
+competences = Array[ExtResource("4_7fbq8")]([])
+metadata/_custom_type_script = "uid://bx4idiyd3kq1x"
 
 [sub_resource type="Resource" id="Resource_3ym65"]
 script = ExtResource("2_bku68")
-nom = "pipi"
-sprite = ExtResource("4_3ym65")
+nom = "monsieur cool"
+sprite = ExtResource("6_tsc8h")
 pv_max = 120
 mana_max = 100
 defense = 0
 pv = 70
 mana = 55
+arme = SubResource("Resource_2lq7y")
 metadata/_custom_type_script = "uid://d1mhmueurm2oc"
+
+[sub_resource type="Resource" id="Resource_706sf"]
+script = ExtResource("5_tsc8h")
+nom = ""
+niveau = 0
+attaque = 8
+competences = Array[ExtResource("4_7fbq8")]([])
+metadata/_custom_type_script = "uid://bx4idiyd3kq1x"
 
 [sub_resource type="Resource" id="Resource_ticc8"]
 script = ExtResource("2_bku68")
@@ -33,6 +53,7 @@ mana_max = 2205
 defense = 0
 pv = 1900
 mana = 1260
+arme = SubResource("Resource_706sf")
 metadata/_custom_type_script = "uid://d1mhmueurm2oc"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ut43r"]
@@ -140,6 +161,7 @@ visible = false
 position = Vector2(0, 610)
 
 [node name="activePlayer" parent="." instance=ExtResource("4_dme4p")]
+visible = false
 position = Vector2(0, 1088)
 
 [node name="FuiteButton" type="Button" parent="."]

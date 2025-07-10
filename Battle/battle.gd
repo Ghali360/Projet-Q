@@ -96,9 +96,7 @@ func _load_equipiers():
 	equipiers_nodes = []
 	for i in range(1, len(equipe)):
 		# Création de la node
-		var e : EquipierContainer = equipier_scene.instantiate()
-		equipiers_container.add_child.call_deferred(e)
-		await e.ready
+		var e = await _create_equipier_container()
 		
 		# On setup la node comme il faut
 		e.load_equipier(equipe[i])
@@ -109,6 +107,17 @@ func _load_equipiers():
 		
 		# ...et on l'affiche !
 		e.show()
+
+
+## Crée une instance d'EquipierContainer, la place dans la scène, et la renvoie. [br]
+## Attention : La fonction est [b]asynchrone[/b] !!! (on oublie pas le await merci) 
+func _create_equipier_container() -> EquipierContainer:
+	var e : EquipierContainer = equipier_scene.instantiate()
+	equipiers_container.add_child.call_deferred(e)
+	await e.ready
+	
+	return e
+
 
 ## Charge les caractéristiques des ennemis dans la scène de combat. (les place dans la scène, affiche leur pv, etc.) 
 func _load_ennemis():
@@ -191,14 +200,14 @@ func attaquer(ennemi : EnnemiContainer):
 	active_player_node.set_pv(pv_player - atk_ennemi)
 	
 	#Fin du tour, c'est au nouveau joueur de jouer
-	player_turn.emit()
-
+	tour_suivant()
 
 
 ## Lance une compétence sur un ou plusieurs ennemis.
 func competence(comp : Competence, ennemis : Array[Ennemi]):
 	pass
 	#TODO
+
 
 ## Utilise un item sur un ou tous les personnages.
 func use_item(item, personnage : Personnage):
@@ -207,3 +216,29 @@ func use_item(item, personnage : Personnage):
 
 
 """ ===================================================== """
+
+
+## Fonction à appeler quand les ennemid ont fini leur tour. [br]
+## Effectue la rotation des personnages, change le personnage actif et notifie que c'est au tour du joueur. 
+func tour_suivant():
+	
+	#1. Remettre l'ancien player actif dans les équipiers (en bas de la liste)
+	var new_equipier = await _create_equipier_container()
+	new_equipier.load_equipier(active_player)
+	
+	equipiers_nodes.push_back(new_equipier)
+	
+	#2. Changer de player actif
+	var old_equipier : EquipierContainer = equipiers_nodes.pop_front()
+	active_player = old_equipier.personnage
+	active_player_node.load_personnage(active_player)
+	old_equipier.queue_free()  #L'équipier est devenu le player actif, on le supprime de la scène
+	
+	
+	#3. Replacer les équipiers correctement à l'écran
+	for i in range(len(equipiers_nodes)):
+		var e : EquipierContainer = equipiers_nodes[i]
+		e.position = FIRST_EQUIPIER_POS + Vector2(0, 350*i)
+	
+	#4. C'est bon c'est de nouveau à nous de jouer ! 
+	player_turn.emit()

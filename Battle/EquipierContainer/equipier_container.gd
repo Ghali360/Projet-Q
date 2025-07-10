@@ -8,6 +8,8 @@ class_name EquipierContainer
 @onready var pv_label : Label = $pvBar/MarginContainer/Label
 @onready var mana_label : Label = $manaBar/MarginContainer/Label
 
+var personnage : Personnage
+
 """Setters pour update les barre de pv et de mana"""
 
 func init_pv_bar(pv_actuel, pv_max):
@@ -33,6 +35,8 @@ func set_mana(mana):
 
 ## Charge les données du personnage dans la scène, et affiche tout bien correctement.
 func load_equipier(equipier : Personnage):
+	personnage = equipier
+	
 	init_mana_bar(equipier.mana, equipier.mana_max)
 	init_pv_bar(equipier.pv, equipier.pv_max)
 	
