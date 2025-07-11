@@ -137,7 +137,6 @@ func _load_ennemis():
 	
 	e.show()
 
-""" ======================================================== """
 
 ## Affiche le HUD des actions que peut faire le joueur. 
 func _show_action_buttons():
@@ -154,22 +153,11 @@ func _hide_action_buttons():
 	items_button.hide()
 	fuite_button.hide()
 
-
-func _on_game_turn() -> void:
-	state = battle_state.GAME_TURN
-	_hide_action_buttons()
-
-func _on_player_turn() -> void:
-	state = battle_state.PLAYER_TURN
-	_show_action_buttons()
+""" ======================================================== """
 
 
-func _on_attaque_button_pressed() -> void:
-	attaquer(ennemis_nodes[0])
+""" =============== Les actions de combats================== """
 
-
-
-""" =============== Les actions de combats=============== """
 
 ## Le joueur actif attaque l'ennemi.
 func attaquer(ennemi : EnnemiContainer):
@@ -204,18 +192,36 @@ func attaquer(ennemi : EnnemiContainer):
 
 
 ## Lance une compétence sur un ou plusieurs ennemis.
+@warning_ignore("unused_parameter", "shadowed_variable")
 func competence(comp : Competence, ennemis : Array[Ennemi]):
 	pass
 	#TODO
 
 
 ## Utilise un item sur un ou tous les personnages.
+@warning_ignore("unused_parameter")
 func use_item(item, personnage : Personnage):
 	pass
 	#TODO
 
 
 """ ===================================================== """
+
+""" ====================Trucs annexes===================="""
+
+func _on_game_turn() -> void:
+	state = battle_state.GAME_TURN
+	_hide_action_buttons()
+
+func _on_player_turn() -> void:
+	state = battle_state.PLAYER_TURN
+	_show_action_buttons()
+
+
+func _on_attaque_button_pressed() -> void:
+	attaquer(ennemis_nodes[0])
+
+
 
 
 ## Fonction à appeler quand les ennemid ont fini leur tour. [br]

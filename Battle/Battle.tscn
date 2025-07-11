@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://wpar88hq1oqg" path="res://Battle/battle.gd" id="1_arymd"]
 [ext_resource type="PackedScene" uid="uid://cdmw5g7s1meik" path="res://Battle/EnnemiContainer/enemy_container.tscn" id="2_aumtf"]
 [ext_resource type="Script" uid="uid://d1mhmueurm2oc" path="res://Personnages/personnage.gd" id="2_bku68"]
-[ext_resource type="Resource" uid="uid://ceeb3h6tbh3vh" path="res://Personnages/PJ/Quentin/Quentin.tres" id="3_3ym65"]
+[ext_resource type="Resource" uid="uid://ceeb3h6tbh3vh" path="res://Personnages/PJ/Quentin/Quentin.tres" id="3_tsc8h"]
 [ext_resource type="PackedScene" uid="uid://dpfoxw0yabb1k" path="res://Battle/EquipierContainer/Equipier_container.tscn" id="3_ut43r"]
 [ext_resource type="Texture2D" uid="uid://bj43l2jug1t66" path="res://Personnages/PNJ/Sprites/azog.png" id="4_3ym65"]
 [ext_resource type="Script" uid="uid://c4fhxf8h6riym" path="res://Compétences/competence.gd" id="4_7fbq8"]
@@ -112,7 +112,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_arymd")
-equipe = Array[ExtResource("2_bku68")]([ExtResource("3_3ym65"), SubResource("Resource_3ym65"), SubResource("Resource_ticc8")])
+equipe = Array[ExtResource("2_bku68")]([ExtResource("3_tsc8h"), SubResource("Resource_3ym65"), SubResource("Resource_ticc8")])
 ennemis = Array[ExtResource("4_ticc8")]([ExtResource("5_7fbq8")])
 
 [node name="Background" type="TextureRect" parent="."]
