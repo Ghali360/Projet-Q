@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Projet-Q-Godot"
-run/main_scene="uid://d0x4fcy186qq5"
+run/main_scene="uid://b1qu42x73ll1"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0.00871159, 0.00512287, 0.0801396, 1)
 boot_splash/image="uid://cmo0ep0i50psn"

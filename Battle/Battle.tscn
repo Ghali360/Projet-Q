@@ -1,169 +1,119 @@
-[gd_scene load_steps=30 format=3 uid="uid://b4ypf8sdtqmel"]
+[gd_scene load_steps=27 format=3 uid="uid://b1qu42x73ll1"]
 
-[ext_resource type="Script" uid="uid://wpar88hq1oqg" path="res://Battle/battle.gd" id="1_3ym65"]
-[ext_resource type="Resource" uid="uid://ceeb3h6tbh3vh" path="res://Personnages/PJ/Quentin/Quentin.tres" id="2_ticc8"]
-[ext_resource type="Resource" uid="uid://bdsg2s5bqre5l" path="res://ennemis/macron.tres" id="3_7fbq8"]
+[ext_resource type="Script" uid="uid://wpar88hq1oqg" path="res://Battle/battle.gd" id="1_arymd"]
+[ext_resource type="PackedScene" uid="uid://cdmw5g7s1meik" path="res://Battle/EnnemiContainer/enemy_container.tscn" id="2_aumtf"]
+[ext_resource type="Script" uid="uid://d1mhmueurm2oc" path="res://Personnages/personnage.gd" id="2_bku68"]
+[ext_resource type="Resource" uid="uid://ceeb3h6tbh3vh" path="res://Personnages/PJ/Quentin/Quentin.tres" id="3_tsc8h"]
+[ext_resource type="PackedScene" uid="uid://dpfoxw0yabb1k" path="res://Battle/EquipierContainer/Equipier_container.tscn" id="3_ut43r"]
+[ext_resource type="Texture2D" uid="uid://bj43l2jug1t66" path="res://Personnages/PNJ/Sprites/azog.png" id="4_3ym65"]
+[ext_resource type="Script" uid="uid://c4fhxf8h6riym" path="res://Compétences/competence.gd" id="4_7fbq8"]
+[ext_resource type="PackedScene" uid="uid://dbddub8d2gkc" path="res://Battle/ActivePlayer/active_player.tscn" id="4_dme4p"]
+[ext_resource type="Script" uid="uid://b87kb0m40o26u" path="res://ennemis/ennemi.gd" id="4_ticc8"]
 [ext_resource type="Texture2D" uid="uid://qxtiyix6nsyl" path="res://Battle/Décor/Gare_d'Orsay_le_31_juillet_2014.jpg" id="4_tsc8h"]
-[ext_resource type="PackedScene" uid="uid://cdmw5g7s1meik" path="res://Battle/Décor/enemy_container.tscn" id="5_dh7om"]
-[ext_resource type="StyleBox" uid="uid://b7nd2uyq27ohf" path="res://couleurs/PV_bg.tres" id="6_fuh3u"]
-[ext_resource type="StyleBox" uid="uid://n27i62faj0ys" path="res://couleurs/PV_fill.tres" id="7_2lq7y"]
-[ext_resource type="Texture2D" uid="uid://gikvay3y6o2j" path="res://Personnages/PNJ/Sprites/monsieur_cool.png" id="8_706sf"]
-[ext_resource type="Theme" uid="uid://dou7dhmluhch6" path="res://Battle/bouton_attaquer.tres" id="9_6d22a"]
-[ext_resource type="Script" uid="uid://dv37f81mw41vv" path="res://Textbox/Scripts/dialogue_manager.gd" id="10_y2316"]
-[ext_resource type="Script" uid="uid://dsc287dxhgn5m" path="res://Textbox/Scripts/textbox_content.gd" id="11_eqnc2"]
-[ext_resource type="Texture2D" uid="uid://cmo0ep0i50psn" path="res://Personnages/PNJ/Sprites/Macron.png" id="12_fkjwm"]
+[ext_resource type="Resource" uid="uid://bdsg2s5bqre5l" path="res://ennemis/macron.tres" id="5_7fbq8"]
+[ext_resource type="Script" uid="uid://bx4idiyd3kq1x" path="res://Armes/arme.gd" id="5_tsc8h"]
+[ext_resource type="Script" uid="uid://dv37f81mw41vv" path="res://Textbox/Scripts/dialogue_manager.gd" id="6_k8abi"]
+[ext_resource type="Texture2D" uid="uid://gikvay3y6o2j" path="res://Personnages/PNJ/Sprites/monsieur_cool.png" id="6_tsc8h"]
+[ext_resource type="Script" uid="uid://dsc287dxhgn5m" path="res://Textbox/Scripts/textbox_content.gd" id="7_o6f3u"]
 
-[sub_resource type="Resource" id="Resource_7i387"]
-script = ExtResource("11_eqnc2")
-texte = "Quentin attaque !"
+[sub_resource type="Resource" id="Resource_2lq7y"]
+script = ExtResource("5_tsc8h")
+nom = "zizi arme 1"
+niveau = 0
+attaque = 20
+competences = Array[ExtResource("4_7fbq8")]([])
+metadata/_custom_type_script = "uid://bx4idiyd3kq1x"
+
+[sub_resource type="Resource" id="Resource_3ym65"]
+script = ExtResource("2_bku68")
+nom = "monsieur cool"
+sprite = ExtResource("6_tsc8h")
+pv_max = 120
+mana_max = 100
+defense = 0
+pv = 70
+mana = 55
+arme = SubResource("Resource_2lq7y")
+metadata/_custom_type_script = "uid://d1mhmueurm2oc"
+
+[sub_resource type="Resource" id="Resource_706sf"]
+script = ExtResource("5_tsc8h")
+nom = ""
+niveau = 0
+attaque = 8
+competences = Array[ExtResource("4_7fbq8")]([])
+metadata/_custom_type_script = "uid://bx4idiyd3kq1x"
+
+[sub_resource type="Resource" id="Resource_ticc8"]
+script = ExtResource("2_bku68")
+nom = "azog 2"
+sprite = ExtResource("4_3ym65")
+pv_max = 2090
+mana_max = 2205
+defense = 0
+pv = 1900
+mana = 1260
+arme = SubResource("Resource_706sf")
+metadata/_custom_type_script = "uid://d1mhmueurm2oc"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ut43r"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_arymd"]
+font_size = 61
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 12
+
+[sub_resource type="Resource" id="Resource_om3gc"]
+script = ExtResource("7_o6f3u")
+texte = "Un ennemi méchant apparait !!!!"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
 font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
-[sub_resource type="Resource" id="Resource_nttxn"]
-script = ExtResource("11_eqnc2")
-texte = "eeeeeeeee"
+[sub_resource type="Resource" id="Resource_7fbq8"]
+script = ExtResource("7_o6f3u")
+texte = "PLAYER attaque !"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
 font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
-[sub_resource type="Resource" id="Resource_u5lwd"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("12_fkjwm")
-texte = "Bonjour je suis Macron"
+[sub_resource type="Resource" id="Resource_dh7om"]
+script = ExtResource("7_o6f3u")
+texte = "Ennemi prend x dégats !!"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
 font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
-[sub_resource type="Resource" id="Resource_dfi4p"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("8_706sf")
-texte = "Bonjour je suis monsieur cool"
+[sub_resource type="Resource" id="Resource_tsc8h"]
+script = ExtResource("7_o6f3u")
+texte = "ENNEMI attaque !!"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
 font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
 
-[sub_resource type="Resource" id="Resource_262jj"]
-script = ExtResource("11_eqnc2")
-texte = "Un [b]MACRON[/b] sauvage apparait !  
-oh non"
+[sub_resource type="Resource" id="Resource_fuh3u"]
+script = ExtResource("7_o6f3u")
+texte = "PLAYER prend x dégats !!!!"
 "vitesse_défilement_texte" = 100.0
 skip_options = 0
 font_custom = false
 metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="SystemFont" id="SystemFont_qxnh6"]
-font_names = PackedStringArray("Impact")
-
-[sub_resource type="Resource" id="Resource_tiokb"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("12_fkjwm")
-texte = "haha c moi [color=red]macron[/color] je vais aneantir le monde"
-"vitesse_défilement_texte" = 54.0
-skip_options = 0
-font_custom = true
-font = SubResource("SystemFont_qxnh6")
-font_color = Color(1, 0, 1, 1)
-font_size = 40
-metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="Resource" id="Resource_0qgg5"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("8_706sf")
-texte = "non arete ces pa bien"
-"vitesse_défilement_texte" = 200.0
-skip_options = 0
-font_custom = false
-metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="Resource" id="Resource_n5y6x"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("12_fkjwm")
-texte = "oh nn c [font_size=60]vrai[/font_size]"
-"vitesse_défilement_texte" = 200.0
-skip_options = 0
-font_custom = false
-metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="Resource" id="Resource_jr0ro"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("12_fkjwm")
-texte = "ok jarete alors"
-"vitesse_défilement_texte" = 100.0
-skip_options = 0
-font_custom = false
-metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="Resource" id="Resource_6xsll"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("8_706sf")
-texte = "youpi"
-"vitesse_défilement_texte" = 100.0
-skip_options = 0
-font_custom = false
-metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="Resource" id="Resource_imcj7"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("12_fkjwm")
-texte = "youpi"
-"vitesse_défilement_texte" = 100.0
-skip_options = 0
-font_custom = false
-metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="Resource" id="Resource_qxnh6"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("12_fkjwm")
-texte = "en fait g menti"
-"vitesse_défilement_texte" = 100.0
-skip_options = 0
-font_custom = false
-metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="SystemFont" id="SystemFont_l0uqe"]
-
-[sub_resource type="Resource" id="Resource_xmk5i"]
-script = ExtResource("11_eqnc2")
-texture = ExtResource("8_706sf")
-texte = "maudis-sois tu   [font_size=60][font=\"res://resources/fonts/comic_sans_ms.tres\"]marcon[/font][/font_size]   j'aurai ta peau"
-"vitesse_défilement_texte" = 100.0
-skip_options = 0
-font_custom = true
-font = SubResource("SystemFont_l0uqe")
-font_color = Color(1, 1, 1, 1)
-font_size = 30
-metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="Resource" id="Resource_l0uqe"]
-script = ExtResource("11_eqnc2")
-texte = "FIGHT"
-"vitesse_défilement_texte" = 20.0
-skip_options = 0
-font_custom = false
-metadata/_custom_type_script = "uid://dsc287dxhgn5m"
-
-[sub_resource type="SystemFont" id="SystemFont_262jj"]
-font_names = PackedStringArray("Comic Sans MS")
 
 [node name="Battle" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -6.0
-offset_top = -4.0
-offset_right = -6.0
-offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_3ym65")
-perso = ExtResource("2_ticc8")
-ennemi = ExtResource("3_7fbq8")
+script = ExtResource("1_arymd")
+equipe = Array[ExtResource("2_bku68")]([ExtResource("3_tsc8h"), SubResource("Resource_3ym65"), SubResource("Resource_ticc8")])
+ennemis = Array[ExtResource("4_ticc8")]([ExtResource("5_7fbq8")])
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -175,77 +125,133 @@ grow_vertical = 2
 texture = ExtResource("4_tsc8h")
 expand_mode = 1
 
-[node name="EnemyContainer" parent="." instance=ExtResource("5_dh7om")]
-layout_mode = 0
-offset_left = 126.0
-offset_top = 194.0
-offset_right = 420.0
-offset_bottom = 629.0
+[node name="Ennemis" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -363.0
+offset_bottom = -257.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ut43r")
 
-[node name="QuentinContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 747.0
-offset_top = 396.0
-offset_right = 897.0
-offset_bottom = 606.0
-
-[node name="ProgressBar" type="ProgressBar" parent="QuentinContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="Ennemi_1" parent="Ennemis" instance=ExtResource("2_aumtf")]
+visible = false
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_styles/background = ExtResource("6_fuh3u")
-theme_override_styles/fill = ExtResource("7_2lq7y")
-value = 100.0
-show_percentage = false
+offset_left = 800.0
+offset_top = 170.0
+offset_right = 1100.0
+offset_bottom = 596.0
 
-[node name="Label" type="Label" parent="QuentinContainer/ProgressBar"]
+[node name="Equipiers" type="Node2D" parent="."]
+position = Vector2(1920, 0)
+
+[node name="Equipier1" parent="Equipiers" instance=ExtResource("3_ut43r")]
+visible = false
+position = Vector2(0, 10)
+
+[node name="Equipier2" parent="Equipiers" instance=ExtResource("3_ut43r")]
+visible = false
+position = Vector2(0, 310)
+
+[node name="Equipier3" parent="Equipiers" instance=ExtResource("3_ut43r")]
+visible = false
+position = Vector2(0, 610)
+
+[node name="activePlayer" parent="." instance=ExtResource("4_dme4p")]
+visible = false
+position = Vector2(0, 1088)
+
+[node name="FuiteButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1002.0
+offset_top = 806.0
+offset_right = 1397.0
+offset_bottom = 905.0
+
+[node name="Label" type="Label" parent="FuiteButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "75/75"
+text = "fuir!!!!!!!!!!!"
+label_settings = SubResource("LabelSettings_arymd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Quentin" type="TextureRect" parent="QuentinContainer"]
-layout_mode = 2
-texture = ExtResource("8_706sf")
-expand_mode = 5
+[node name="ItemsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 596.0
+offset_top = 806.0
+offset_right = 991.0
+offset_bottom = 905.0
 
-[node name="AttaqueButton" type="Button" parent="."]
+[node name="Label" type="Label" parent="ItemsButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 491.0
-offset_top = 105.0
-offset_right = -444.0
-offset_bottom = -488.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("9_6d22a")
-text = "Attaquer"
+text = "Objets"
+label_settings = SubResource("LabelSettings_arymd")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="AttaqueDialogue" type="Node" parent="AttaqueButton"]
-script = ExtResource("10_y2316")
-lignes_de_dialogue = Array[ExtResource("11_eqnc2")]([SubResource("Resource_7i387"), SubResource("Resource_nttxn")])
+[node name="CompétencesButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1002.0
+offset_top = 705.0
+offset_right = 1397.0
+offset_bottom = 804.0
+
+[node name="Label" type="Label" parent="CompétencesButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Compétences"
+label_settings = SubResource("LabelSettings_arymd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AttaqueButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 596.0
+offset_top = 705.0
+offset_right = 991.0
+offset_bottom = 804.0
+
+[node name="Label" type="Label" parent="AttaqueButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Attaque"
+label_settings = SubResource("LabelSettings_arymd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dialogues" type="Node" parent="."]
+
+[node name="intro" type="Node" parent="Dialogues"]
+script = ExtResource("6_k8abi")
+lignes_de_dialogue = Array[ExtResource("7_o6f3u")]([SubResource("Resource_om3gc")])
 metadata/_custom_type_script = "uid://dv37f81mw41vv"
 
-[node name="DialogueExemple" type="Node" parent="."]
-script = ExtResource("10_y2316")
-lignes_de_dialogue = Array[ExtResource("11_eqnc2")]([SubResource("Resource_u5lwd"), SubResource("Resource_dfi4p")])
+[node name="battle" type="Node" parent="Dialogues"]
+script = ExtResource("6_k8abi")
+lignes_de_dialogue = Array[ExtResource("7_o6f3u")]([SubResource("Resource_7fbq8"), SubResource("Resource_dh7om"), SubResource("Resource_tsc8h"), SubResource("Resource_fuh3u")])
 metadata/_custom_type_script = "uid://dv37f81mw41vv"
 
-[node name="IntroDialogue" type="Node" parent="."]
-script = ExtResource("10_y2316")
-lignes_de_dialogue = Array[ExtResource("11_eqnc2")]([SubResource("Resource_262jj"), SubResource("Resource_tiokb"), SubResource("Resource_0qgg5"), SubResource("Resource_n5y6x"), SubResource("Resource_jr0ro"), SubResource("Resource_6xsll"), SubResource("Resource_imcj7"), SubResource("Resource_qxnh6"), SubResource("Resource_xmk5i"), SubResource("Resource_l0uqe")])
-font = SubResource("SystemFont_262jj")
-font_size = 40
-metadata/_custom_type_script = "uid://dv37f81mw41vv"
-
+[connection signal="game_turn" from="." to="." method="_on_game_turn"]
+[connection signal="player_turn" from="." to="." method="_on_player_turn"]
 [connection signal="pressed" from="AttaqueButton" to="." method="_on_attaque_button_pressed"]
-[connection signal="dialogue_stopped" from="AttaqueButton/AttaqueDialogue" to="." method="_on_dialogue_stopped"]
