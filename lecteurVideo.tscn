@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbmbr6bslbsej"]
+
+[ext_resource type="VideoStream" uid="uid://cwlxmdcnj6x2p" path="res://videos/epee-transparent.ogv" id="1_277sm"]
+[ext_resource type="Shader" uid="uid://de4qbvq1cbxui" path="res://lecteurVideo.gdshader" id="2_8xl5r"]
+[ext_resource type="Script" uid="uid://doid3gmju0qw0" path="res://spritevideo.gd" id="2_277sm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tv5yq"]
+shader = ExtResource("2_8xl5r")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1920, 1080)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="SubViewport"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+stream = ExtResource("1_277sm")
+autoplay = true
+loop = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tv5yq")
+script = ExtResource("2_277sm")
+
+[node name="Camera2D" type="Camera2D" parent="."]
