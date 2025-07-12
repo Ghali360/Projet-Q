@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6xgvsm6wjo4"]
+
+[ext_resource type="Shader" uid="uid://dbw5khqsgyfg5" path="res://Shaders/Shine.gdshader" id="1_qfin5"]
+[ext_resource type="Texture2D" uid="uid://bj43l2jug1t66" path="res://Personnages/PNJ/Sprites/azog.png" id="1_qqa7d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j6vps"]
+shader = ExtResource("1_qfin5")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_angle = 45.0
+shader_parameter/shine_speed = 0.3
+shader_parameter/shine_delay = 0.0
+shader_parameter/shine_reverse = false
+shader_parameter/Line_Width = 0.025
+shader_parameter/Line_Smoothness = 0.03
+shader_parameter/Brightness = 3.0
+shader_parameter/Distortion = 1.585
+shader_parameter/LensStrength = 0.1
+
+[node name="Sprite2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_j6vps")
+position = Vector2(1024, 793)
+texture = ExtResource("1_qqa7d")
