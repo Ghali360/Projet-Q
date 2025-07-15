@@ -19,13 +19,23 @@ var position_history := []
 var Vitesse : float 
 var canMove : bool =true
 var obstacle_direction : Vector2 = Vector2.ZERO
-
+var initial_position: Vector2
 
 signal Marche
 signal idle
 signal Moving
 signal NotMoving
-
+func _ready():
+	# 1. Enregistrer la position initiale (définie dans l'éditeur)
+	initial_position = global_position
+	
+	# 2. Charger la position sauvegardée SI ELLE EXISTE
+	var current_scene = get_tree().current_scene.name
+	var saved_position = GlobalState.load_position(current_scene, initial_position)
+	
+	# 3. Appliquer la position (sauvée ou initiale)
+	global_position = saved_position
+	add_to_group("Player")
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	print("Collision")
 	if  not body.is_in_group("Compagnon"):
@@ -143,3 +153,11 @@ func AnimDirection() -> String:
 func _add_trail_point() -> void:
 	var pos = global_position
 #
+func save_position():
+	# Sauvegarder la position actuelle dans le niveau courant
+	var current_level = get_tree().current_scene.name
+	GlobalState.saved_positions[current_level] = global_position
+	print("Position sauvegardée: ", global_position)
+func _exit_tree():
+	# Sauvegarder automatiquement quand le joueur quitte la scène
+	save_position()

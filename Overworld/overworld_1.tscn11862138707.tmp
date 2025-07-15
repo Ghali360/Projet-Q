@@ -48,15 +48,15 @@ script = ExtResource("3_k57gc")
 [node name="player" parent="." instance=ExtResource("3_is705")]
 position = Vector2(977, 472)
 
-[node name="Compagnon 1" parent="." groups=["Compagnons"] instance=ExtResource("4_x5smf")]
+[node name="Compagnon 1" parent="." instance=ExtResource("4_x5smf")]
 z_index = -1
 position = Vector2(956, 455)
 RefDistance = 110.0
 
-[node name="Compagnon 2" parent="." groups=["Compagnons"] instance=ExtResource("9_is705")]
+[node name="Compagnon 2" parent="." instance=ExtResource("9_is705")]
 position = Vector2(850, 466)
 
-[node name="Compagnon 3" parent="." groups=["Compagnons"] instance=ExtResource("6_x5smf")]
+[node name="Compagnon 3" parent="." instance=ExtResource("6_x5smf")]
 position = Vector2(853, 575)
 
 [node name="Azog 1" parent="." instance=ExtResource("5_k57gc")]

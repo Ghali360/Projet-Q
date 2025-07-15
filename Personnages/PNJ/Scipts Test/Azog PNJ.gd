@@ -2,9 +2,11 @@ extends StaticBody2D
 
 @onready var interactible: Area2D = $Interactible
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var porte : StaticBody2D = $"../Porte 1"
 
 func _ready() -> void:
 	interactible.interact = _on_interact
+	
 	
 func _on_interact():
 	if sprite_2d.frame == 0:
@@ -27,4 +29,5 @@ func flash():
 		mat.set_shader_parameter("flash_modifier", 0.65)
 		await get_tree().create_timer(0.1).timeout
 		mat.set_shader_parameter("flash_modifier", 0)
+		porte.interactible.is_interactif = true
 		interactible.is_interactif = true

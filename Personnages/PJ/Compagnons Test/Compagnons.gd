@@ -22,21 +22,20 @@ var last_direction := "null"
 var state : String = "idle"
 var  HasFriend : bool 
 
-
 signal Moving
 signal NotMoving
 
 func _ready() -> void:
 	call_deferred("AssingPlayer")
 	call_deferred("_Check_Friend")
-
+	
 func AssingPlayer():
 	player = root.find_child("player")
 	player_trail = player.get_child(3)
 	if player_trail == null :
 		print("NoTRAIL")
 	else :
-		print("Trail")
+		global_position = player.global_position
 
 func _process(delta: float) -> void:
 	if timerAnim >= 0 :
@@ -44,6 +43,11 @@ func _process(delta: float) -> void:
 	_get_animation_direction(velocity)
 
 func _physics_process(delta: float) -> void:
+	if player != null :
+		if player.global_position.y >=global_position.y :
+			z_index = player.z_index - 1
+		else :
+			z_index = player.z_index + 1
 	if player_trail != null:
 		var distance = global_position.distance_to(player.global_position)
 		if player_trail.points.size() >= NbrPointMax:

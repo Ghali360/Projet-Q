@@ -25,6 +25,7 @@ Stats="*res://script/Stats.gd"
 FadeScreen="*res://Overworld/fade_screen.tscn"
 GlobalAudioStreamPlayer="*res://Sounds/audio_stream_player.tscn"
 FxStreamPlayer="*res://Sounds/fx_stream_player.tscn"
+GlobalState="*res://scripts globaux/global_state.gd"
 
 [display]
 
@@ -34,6 +35,10 @@ window/size/mode=3
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="viewport"
+
+[global_group]
+
+Compagnons=""
 
 [input]
 

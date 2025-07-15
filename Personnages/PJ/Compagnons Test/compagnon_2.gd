@@ -22,29 +22,39 @@ var last_direction := "null"
 var state : String = "idle"
 var  HasFriend : bool 
 var hasFriendBoss : bool = false
-
+var is_ready := false
+var player : CharacterBody2D
+var friendNBR
 signal Moving
 signal NotMoving
 
 func _ready() -> void:
 	call_deferred("AssingPlayer")
 	call_deferred("_Check_Friend")
-
+	is_ready = true
 func AssingPlayer():
-	var friendNBR = name.to_int() - 1
+	friendNBR = name.to_int() - 1
 	FriendBoss = root.find_child("Compagnon "+str(friendNBR))
+	player = root.find_child("player")
 	print(FriendBoss)
 	if FriendBoss == null:
-		print("noBoss")
+		pass
 	else : 
 		hasFriendBoss = true
-		print("Boss")
 	player_trail = FriendBoss.get_child(4)
 	if player_trail == null :
 		print("NoTRAIL")
 	else :
 		print("Trail")
-
+	if FriendBoss == null:
+			pass
+	else : 
+		hasFriendBoss = true
+	if player == null:
+		pass
+	else : 
+		global_position = player.global_position
+		
 func _Check_Friend():
 	var friendNBR = name.to_int() + 1
 	Friend = root.find_child("Compagnon "+str(friendNBR))
@@ -59,6 +69,11 @@ func _process(delta: float) -> void:
 	_get_animation_direction(velocity)
 
 func _physics_process(delta: float) -> void:
+	if FriendBoss != null :
+		if FriendBoss.global_position.y >= global_position.y :
+			z_index = FriendBoss.z_index - 1
+		else :
+			z_index = FriendBoss.z_index + 1
 	if hasFriendBoss:
 		var player_global_position = FriendBoss.global_position
 		if player_trail != null:

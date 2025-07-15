@@ -1,22 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://dh0d4q1yh8tof"]
+[gd_scene load_steps=9 format=3 uid="uid://dh0d4q1yh8tof"]
 
 [ext_resource type="PackedScene" uid="uid://cqkmtaow2ys0b" path="res://Overworld/Decors/DécorChambre.tscn" id="1_v33fp"]
+[ext_resource type="TileSet" uid="uid://cfldxsud436a6" path="res://Overworld/Decors/DécorChambre.tres" id="2_2x167"]
 [ext_resource type="PackedScene" uid="uid://yywv76874k0l" path="res://Personnages/PJ/Quentin/player.tscn" id="2_pu1tl"]
 [ext_resource type="PackedScene" uid="uid://p2yws5av6ed5" path="res://Personnages/PJ/Compagnons Test/Compagnon1.tscn" id="3_8xcsh"]
 [ext_resource type="PackedScene" uid="uid://ir3rt7b5pfor" path="res://Personnages/PJ/Compagnons Test/compagnon_2.tscn" id="4_1pjqv"]
 [ext_resource type="PackedScene" uid="uid://dwyg7dbpgu25d" path="res://Personnages/PJ/Compagnons Test/compagnon 3.tscn" id="5_8u1c4"]
+[ext_resource type="PackedScene" uid="uid://bdx4mkf7hb42" path="res://Overworld/Decors/furniture/porte.tscn" id="6_8u1c4"]
+[ext_resource type="Script" uid="uid://c28tprtko7hk6" path="res://Overworld/Decors/furniture/porte2.gd" id="7_sj5iv"]
 
 [node name="Overworld_2" type="Node2D"]
 
 [node name="DecorChambre" parent="." instance=ExtResource("1_v33fp")]
 scale = Vector2(5, 5)
+tile_set = ExtResource("2_2x167")
 
 [node name="player" parent="." instance=ExtResource("2_pu1tl")]
-position = Vector2(89, 166)
+position = Vector2(153, 177)
 
 [node name="Compagnon 1" parent="." instance=ExtResource("3_8xcsh")]
 z_index = -1
-position = Vector2(68, 149)
+position = Vector2(124, 191)
 RefDistance = 110.0
 
 [node name="Compagnon 2" parent="." instance=ExtResource("4_1pjqv")]
@@ -24,3 +28,7 @@ position = Vector2(850, 466)
 
 [node name="Compagnon 3" parent="." instance=ExtResource("5_8u1c4")]
 position = Vector2(853, 575)
+
+[node name="Porte" parent="." instance=ExtResource("6_8u1c4")]
+position = Vector2(134, 11)
+script = ExtResource("7_sj5iv")

@@ -11,5 +11,3 @@ script = ExtResource("1_3cyum")
 
 [node name="Node2D" parent="." instance=ExtResource("2_3cyum")]
 speed = 200
-timerAnim = 0.25
-RefDistance = 0.0

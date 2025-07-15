@@ -3,4 +3,5 @@
 [ext_resource type="Script" uid="uid://1xiyjrt5l5m0" path="res://Overworld/Scripts/trail.gd" id="1_ccptl"]
 
 [node name="Trail" type="Line2D"]
+visible = false
 script = ExtResource("1_ccptl")
